@@ -13,7 +13,7 @@ int main()
 
 
 	sf::Texture purpleman;
-	purpleman.loadFromFile("Object/compman.png");
+	purpleman.loadFromFile("Object/compmanA.png");
 	sf::Sprite boxwayman(purpleman);
 	/*int ppmanX = purpleman.getSize().x / 12;
 	int ppmanY = purpleman.getSize().y / 15;
@@ -25,7 +25,7 @@ int main()
 	sf::Sprite boxwaybox(box);
 	sf::Vector2f boxPoint = { 800.f,550.f };
 
-	Animation animation(&purpleman, sf::Vector2u(9, 1), 0.3f);
+	Animation animation(&purpleman, sf::Vector2u(7, 1), 0.3f);
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
