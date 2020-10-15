@@ -1,14 +1,15 @@
 #include "compman.h"
 
 compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed)
-:animation(texture, imageCount, switchTime)
+	:animation(texture, imageCount, switchTime)
 {
 	this->speed = speed;
 	row = 0;
 	faceRight = true;
 
-	body.setSize(sf::Vector2f(80.0f, 80.0f));
-	body.setPosition(750.f, 480.f);
+	body.setSize(sf::Vector2f(75.0f, 75.0f));
+	body.setOrigin(body.getSize() / 2.0f);
+	body.setPosition(650.f, 600.f);
 	body.setTexture(texture);
 }
 
@@ -24,7 +25,7 @@ void compman::Update(float deltaTime)
 		movement.x -= speed * deltaTime;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		movement.x += speed * deltaTime;
-	
+
 	if (movement.x == 0.0f)
 	{
 		row = 0;
@@ -42,7 +43,7 @@ void compman::Update(float deltaTime)
 	}
 
 	animation.Update(row, deltaTime, faceRight);
-	
+
 	body.setTextureRect(animation.uvRect);
 	body.move(movement);
 
