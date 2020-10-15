@@ -1,37 +1,28 @@
 #include <SFML/Graphics.hpp>
 #include<SFML/System.hpp>
 #include<iostream>
-#include"Animation.h"
+#include"compman.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1500, 700), "Box Way");
+	sf::RenderWindow window(sf::VideoMode(1500, 700), "Box Way", sf::Style::Close | sf::Style::Resize);
+	sf::Texture CompmanTexture;
+	CompmanTexture.loadFromFile("Object/compmanA.png");
 	//sf::Texture wall;
 	//wall.loadFromFile("Wallpaper/wallpapertest03.jpg");
 	//sf::Sprite wall2(wall);
 	//wall2.setScale(1.7, 1.5);
-
-
-	sf::Texture purpleman;
-	purpleman.loadFromFile("Object/compmanA.png");
-	sf::Sprite boxwayman(purpleman);
-	/*int ppmanX = purpleman.getSize().x / 12;
-	int ppmanY = purpleman.getSize().y / 15;
-	boxwayman.setTextureRect(sf::IntRect(ppmanX * 0, ppmanY * 0, ppmanX, ppmanY));*/
-	sf::Vector2f spawnPoint = { 750.f,550.f };
 
 	sf::Texture box;
 	box.loadFromFile("Object/boxedit.png");
 	sf::Sprite boxwaybox(box);
 	sf::Vector2f boxPoint = { 800.f,550.f };
 
-	Animation animation(&purpleman, sf::Vector2u(7, 1), 0.3f);
+	compman Compman(&CompmanTexture, sf::Vector2u(7, 1), 0.3f, 100.0f);
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
 	
-	
-	boxwayman.setPosition(spawnPoint);
 	boxwaybox.setPosition(boxPoint);
 
 	while (window.isOpen())
@@ -58,31 +49,11 @@ int main()
 				std::cout << "Mouse button has been released" << std::endl;
 			}
 		}
-		/*boxwayman.setTextureRect(sf::IntRect(ppmanX * 0, ppmanY * 0, ppmanX, ppmanY));
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		{
-			boxwayman.move(0.1f, 0.0f);
-			boxwayman.setTextureRect(sf::IntRect(ppmanX * 0, ppmanY * 0, ppmanX, ppmanY));
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		{
-			boxwayman.move(-0.1f, 0.f);
-			boxwayman.setTextureRect(sf::IntRect(ppmanX * 0, ppmanY * 0, ppmanX, ppmanY));
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		{
-			boxwayman.move(0.f, -0.1f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		{
-			boxwayman.move(0.f, 0.1f);
-		}*/
 	
-		animation.Update(0, deltaTime);
-		boxwayman.setTextureRect(animation.uvRect);
+		Compman.Update(deltaTime);
 		window.clear();
 		//window.draw(wall2);
-		window.draw(boxwayman);
+		Compman.Draw(window);
 		window.draw(boxwaybox);
 		window.display();
 	}
