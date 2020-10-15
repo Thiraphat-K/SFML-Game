@@ -13,17 +13,17 @@ int main()
 	//sf::Sprite wall2(wall);
 	//wall2.setScale(1.7, 1.5);
 
-	sf::Texture box;
+	/*sf::Texture box;
 	box.loadFromFile("Object/boxedit.png");
 	sf::Sprite boxwaybox(box);
-	sf::Vector2f boxPoint = { 800.f,550.f };
+	sf::Vector2f boxPoint = { 800.f,550.f };*/
 
-	compman Compman(&CompmanTexture, sf::Vector2u(7, 1), 0.3f, 100.0f);
+	compman Compman(&CompmanTexture, sf::Vector2u(8, 2), 0.2f, 100.0f);
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
 	
-	boxwaybox.setPosition(boxPoint);
+	//boxwaybox.setPosition(boxPoint);
 
 	while (window.isOpen())
 	{
@@ -50,11 +50,12 @@ int main()
 			}
 		}
 	
-		Compman.Update(deltaTime);
+		
 		window.clear();
 		//window.draw(wall2);
+		Compman.Update(deltaTime);
 		Compman.Draw(window);
-		window.draw(boxwaybox);
+		//window.draw(boxwaybox);
 		window.display();
 	}
 

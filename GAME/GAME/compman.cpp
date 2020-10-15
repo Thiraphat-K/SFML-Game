@@ -7,8 +7,8 @@ compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime
 	row = 0;
 	faceRight = true;
 
-	body.setSize(sf::Vector2f(100.0f, 150.0f));
-	body.setPosition(750.f, 550.f);
+	body.setSize(sf::Vector2f(80.0f, 80.0f));
+	body.setPosition(750.f, 480.f);
 	body.setTexture(texture);
 }
 
@@ -24,7 +24,7 @@ void compman::Update(float deltaTime)
 		movement.x -= speed * deltaTime;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		movement.x += speed * deltaTime;
-
+	
 	if (movement.x == 0.0f)
 	{
 		row = 0;
@@ -33,15 +33,19 @@ void compman::Update(float deltaTime)
 	{
 		row = 1;
 
-		if (movement.x > 0.0f)
+		if (movement.x > 0.0f) {
 			faceRight = true;
-		else
+		}
+		else {
 			faceRight = false;
+		}
 	}
 
 	animation.Update(row, deltaTime, faceRight);
+	
 	body.setTextureRect(animation.uvRect);
 	body.move(movement);
+
 }
 
 void compman::Draw(sf::RenderWindow& window)
