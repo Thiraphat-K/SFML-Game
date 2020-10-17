@@ -1,6 +1,13 @@
-﻿  Source.cpp
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(69,37): warning C4305: 'argument': truncation from 'int' to 'sf::Uint8'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(69,34): warning C4309: 'argument': truncation of constant value
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(69,30): warning C4309: 'argument': truncation of constant value
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(69,26): warning C4309: 'argument': truncation of constant value
-  GAME.vcxproj -> C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\x64\Debug\GAME.exe
+﻿  ObjColli.cpp
+  Source.cpp
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(72,69): error C2664: 'bool Collider::CheckCollision(Collider &,float)': cannot convert argument 1 from 'Collider' to 'Collider &'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(72,61): message : A non-const reference may only be bound to an lvalue
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Collider.h(12,7): message : see declaration of 'Collider::CheckCollision'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(73,69): error C2664: 'bool Collider::CheckCollision(Collider &,float)': cannot convert argument 1 from 'Collider' to 'Collider &'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(73,61): message : A non-const reference may only be bound to an lvalue
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Collider.h(12,7): message : see declaration of 'Collider::CheckCollision'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(75,37): warning C4305: 'argument': truncation from 'int' to 'sf::Uint8'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(75,34): warning C4309: 'argument': truncation of constant value
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(75,30): warning C4309: 'argument': truncation of constant value
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(75,26): warning C4309: 'argument': truncation of constant value
+  Generating Code...

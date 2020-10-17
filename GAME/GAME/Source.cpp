@@ -2,6 +2,7 @@
 #include<SFML/System.hpp>
 #include<iostream>
 #include"compman.h"
+#include"ObjColli.h"
 
 static const float VIEW_HEIGHT = 900.0f;
 
@@ -30,6 +31,9 @@ int main()
 	sf::Vector2f boxPoint = { 800.f,550.f };*/
 
 	compman Compman(&CompmanTexture, sf::Vector2u(8, 2), 0.2f, 100.0f);
+
+	ObjColli objcolli1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
+	ObjColli objcolli2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
@@ -65,11 +69,15 @@ int main()
 		}
 		
 		Compman.Update(deltaTime);
+		objcolli1.GetCollider().CheckCollision(Compman.GetCollider(), 0.9f);
+		objcolli2.GetCollider().CheckCollision(Compman.GetCollider(), 1.0f);
 		view.setCenter(Compman.GetPosition());
 		window.clear(sf::Color(500,500,500));
 		//window.draw(wall2);
 		window.setView(view);
 		Compman.Draw(window);
+		objcolli1.Draw(window);
+		objcolli2.Draw(window);
 		//window.draw(boxwaybox);
 		window.display();
 	}
