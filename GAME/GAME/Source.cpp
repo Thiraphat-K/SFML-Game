@@ -20,10 +20,10 @@ int main()
 	CompmanTexture.loadFromFile("Object/compmanA.png");
 
 	
-	//sf::Texture wall;
-	//wall.loadFromFile("Wallpaper/wallpapertest03.jpg");
-	//sf::Sprite wall2(wall);
-	//wall2.setScale(1.7, 1.5);
+	sf::Texture Bg;
+	Bg.loadFromFile("Object/FezBg1.jpg");
+	sf::Sprite bg(Bg);
+	bg.setScale(1.5, 1.2);
 
 	/*sf::Texture box;
 	box.loadFromFile("Object/boxedit.png");
@@ -32,8 +32,8 @@ int main()
 
 	compman Compman(&CompmanTexture, sf::Vector2u(8, 2), 0.2f, 100.0f);
 
-	ObjColli objcolli1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
-	ObjColli objcolli2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
+	ObjColli objcolli1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 500.0f));
+	ObjColli objcolli2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 400.0f));
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
@@ -69,11 +69,11 @@ int main()
 		}
 		
 		Compman.Update(deltaTime);
-		objcolli1.GetCollider().CheckCollision(Compman.GetCollider(), 0.9f);
-		objcolli2.GetCollider().CheckCollision(Compman.GetCollider(), 1.0f);
+		/*objcolli1.GetCollider().CheckCollision(Compman.GetCollider(), 0.9f);
+		objcolli2.GetCollider().CheckCollision(Compman.GetCollider(), 1.0f);*/
 		view.setCenter(Compman.GetPosition());
 		window.clear(sf::Color(500,500,500));
-		//window.draw(wall2);
+		window.draw(bg);
 		window.setView(view);
 		Compman.Draw(window);
 		objcolli1.Draw(window);
