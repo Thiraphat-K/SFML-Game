@@ -31,21 +31,13 @@ int main()
 	bg.setScale(1.5, 1.5);
 
 	//***Box**//
-	/*sf::Texture box;
-	box.loadFromFile("Object/boxedit.png");
-	sf::Sprite boxwaybox(box);*/
-	//sf::Vector2f boxPoint = { 750.f,760.f };
 	sf::Texture box;
 	box.loadFromFile("Object/box.png");
 	ObjColli box1(&box, sf::Vector2f(64.0f,64.0f), sf::Vector2f (750.0f, 800.0f));
 
-	/*ObjColli objcolli1(nullptr, sf::Vector2f(200.0f, 200.0f), sf::Vector2f(600.0f, 700.0f));*/
-	/*ObjColli objcolli2(nullptr, sf::Vector2f(100.0f, 100.0f), sf::Vector2f(700.0f, 800.0f));*/
-
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
 	
-	/*boxwaybox.setPosition(boxPoint);*/
 
 	while (window.isOpen())
 	{
@@ -78,8 +70,6 @@ int main()
 
 		Compman.Update(deltaTime);
 		Collider c = Compman.GetCollider();
-		/*objcolli1.GetCollider().CheckCollision(c, 0.9f);*/
-		/*objcolli2.GetCollider().CheckCollision(c, 1.0f);*/
 		box1.GetCollider().CheckCollision(c, 1.0f);
 		view.setCenter(Compman.GetPosition());
 		window.clear(sf::Color(500,500,500));
@@ -87,9 +77,6 @@ int main()
 		window.setView(view);
 		Compman.Draw(window);
 		box1.Draw(window);
-		/*objcolli1.Draw(window);*/
-		/*objcolli2.Draw(window);*/
-		//window.draw(boxwaybox);
 		window.display();
 	}
 
