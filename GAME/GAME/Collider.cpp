@@ -40,6 +40,7 @@ bool Collider::CheckCollision(Collider& other, float push)
 				Move(-intersectX * (1.0f - push), 0.0f);
 				other.Move(intersectX * push, 0.0f);
 			}
+			std::cout << "CLASHED !!!" << std::endl;
 		}
 		else
 		{

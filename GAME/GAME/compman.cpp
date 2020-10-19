@@ -9,7 +9,7 @@ compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime
 
 	body.setSize(sf::Vector2f(75.0f, 75.0f));
 	body.setOrigin(body.getSize() / 2.0f);
-	body.setPosition(450.f, 750.f);
+	body.setPosition(450.f, 800.f);
 	body.setTexture(texture);
 }
 
