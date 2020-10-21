@@ -17,7 +17,7 @@ compman::~compman()
 {
 }
 
-void compman::Update(float deltaTime)
+void compman::Update(float deltaTime, sf::Vector2u compmanposition)
 {
 	sf::Vector2f movement(0.0f, 0.0f);
 

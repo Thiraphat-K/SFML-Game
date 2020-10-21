@@ -26,7 +26,7 @@ bool Collider::CheckCollision(Collider& other, float push)
 
 	if (intersectX < 0.0f && intersectY < 0.0f)
 	{
-		push = std::min(std::max(push, 0.0f), 1.0f);
+		push = std::min(std::max(push, 0.0f), 0.0f);
 		
 		if (intersectX > intersectY)
 		{

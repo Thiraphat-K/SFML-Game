@@ -1,6 +1,2 @@
-﻿  Source.cpp
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(75,37): warning C4305: 'argument': truncation from 'int' to 'sf::Uint8'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(75,34): warning C4309: 'argument': truncation of constant value
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(75,30): warning C4309: 'argument': truncation of constant value
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(75,26): warning C4309: 'argument': truncation of constant value
+﻿  compman.cpp
   GAME.vcxproj -> C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\x64\Debug\GAME.exe
