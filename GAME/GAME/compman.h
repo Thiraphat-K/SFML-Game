@@ -6,7 +6,7 @@
 class compman
 {
 public:
-	compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeigth);
+	compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight);
 	~compman();
 
 	void Update(float deltaTime);

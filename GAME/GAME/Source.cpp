@@ -76,10 +76,6 @@ int main()
 		Compman.Update(deltaTime);
 		sf::Vector2f direction;
 		Collider c = Compman.GetCollider();
-		/*for (int i = 0; i < objs.size(); i++)
-		{
-			ObjColli& Obj = objs[i];
-		}*/
 		for (ObjColli& Obj : Objs)
 			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 				Compman.OnCollision(direction);

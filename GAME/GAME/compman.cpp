@@ -1,6 +1,6 @@
 #include "compman.h"
 
-compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeigth)
+compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight)
 	:animation(texture, imageCount, switchTime)
 {
 	this->speed = speed;
@@ -26,15 +26,13 @@ void compman::Update(float deltaTime)
 		velocity.x -= speed;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		velocity.x += speed;
-	
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && canJump)
 	{
 		canJump = false;
 
 		velocity.y = -sqrtf(2.0f * 980.0f * jumpHeight);
-		//square root (...0f * gravity * jumpHeight);
 	}
-
 	velocity.y += 980.0f * deltaTime;
 
 	if (velocity.x == 0.0f)
