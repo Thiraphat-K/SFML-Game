@@ -8,6 +8,7 @@
 #include"ObjColli.h"
 
 static const float VIEW_HEIGHT = 900.0f;
+static const float boxes = 256.0f;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
@@ -26,17 +27,34 @@ int main()
 	compman Compman(&CompmanTexture, sf::Vector2u(8, 2), 0.2f, 400.0f, 200.0f);
 
 	//***Background**//
-	sf::Texture Bg;
+	/*sf::Texture Bg;
 	Bg.loadFromFile("Object/FezBg1.jpg");
 	sf::Sprite bg(Bg);
-	bg.setScale(1.5, 1.5);
+	bg.setScale(1.5, 1.5);*/
 
 	//***Box**//
 	sf::Texture box;
 	box.loadFromFile("Object/box.png");
-	std::vector<ObjColli>Objs;
-	Objs.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f, 1000.0f)));
+	std::vector<ObjColli>Objs1;
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 2, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 3, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 4, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 5, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 6, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 7, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 8, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 9, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 10, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 11, 1000.0f)));
 	//ObjColli box1(&box, sf::Vector2f(64.0f,64.0f), sf::Vector2f (750.0f, 800.0f));
+
+	//----box--pick----//
+	sf::Texture box2;
+	box2.loadFromFile("Object/box2.png");
+	std::vector<ObjColli>Objs2;
+	Objs2.push_back(ObjColli(&box2, sf::Vector2f(64.0f, 64.0f), sf::Vector2f(600.0f, 839.8f)));
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
@@ -76,16 +94,21 @@ int main()
 		Compman.Update(deltaTime);
 		sf::Vector2f direction;
 		Collider c = Compman.GetCollider();
-		for (ObjColli& Obj : Objs)
+		for (ObjColli& Obj : Objs1)
+			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
+				Compman.OnCollision(direction);
+		for (ObjColli& Obj : Objs2)
 			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 				Compman.OnCollision(direction);
 		//box1.GetCollider().CheckCollision(c, 1.0f);
 		view.setCenter(Compman.GetPosition());
 		window.clear(sf::Color(500, 500, 500));
-		window.draw(bg);
+		//window.draw(bg);
 		window.setView(view);
 		Compman.Draw(window);
-		for (ObjColli& Obj : Objs)
+		for (ObjColli& Obj : Objs1)
+			Obj.Draw(window);
+		for (ObjColli& Obj : Objs2)
 			Obj.Draw(window);
 		//box1.Draw(window);
 		window.display();

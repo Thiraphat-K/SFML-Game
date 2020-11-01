@@ -1,7 +1,7 @@
 #include "compman.h"
 
 compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight)
-	:animation(texture, imageCount, switchTime)
+	:animation(texture, imageCount, switchTime), canJump(0)
 {
 	this->speed = speed;
 	this->jumpHeight = jumpHeight;
@@ -32,6 +32,7 @@ void compman::Update(float deltaTime)
 		canJump = false;
 
 		velocity.y = -sqrtf(2.0f * 980.0f * jumpHeight);
+		std::cout << "JUMP !!!" << std::endl;
 	}
 	velocity.y += 980.0f * deltaTime;
 

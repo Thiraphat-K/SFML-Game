@@ -26,7 +26,7 @@ bool Collider::CheckCollision(Collider& other, sf::Vector2f& direction, float pu
 
 	if (intersectX < 0.0f && intersectY < 0.0f)
 	{
-		push = std::min(std::max(push, 0.0f), 0.4f);
+		push = std::min(std::max(push, 0.0f), 1.0f);
 
 		if (intersectX > intersectY)
 		{
@@ -66,7 +66,7 @@ bool Collider::CheckCollision(Collider& other, sf::Vector2f& direction, float pu
 				direction.x = 0.0f;
 				direction.y = -1.0f;
 			}
-			//std::cout << "CLASHED Y !!!" << std::endl;
+			/*std::cout << "CLASHED Y !!!" << std::endl;*/
 		}
 
 		return true;
