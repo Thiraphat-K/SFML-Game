@@ -23,8 +23,8 @@ int main()
 
 	//***Player**//
 	sf::Texture CompmanTexture;
-	CompmanTexture.loadFromFile("Object/compmanA.png");
-	compman Compman(&CompmanTexture, sf::Vector2u(8, 2), 0.2f, 400.0f, 200.0f);
+	CompmanTexture.loadFromFile("Object/compmanA1.png");
+	compman Compman(&CompmanTexture, sf::Vector2u(8, 3), 0.2f, 400.0f, 200.0f);
 
 	//***Background**//
 	/*sf::Texture Bg;
@@ -54,7 +54,7 @@ int main()
 	sf::Texture box2;
 	box2.loadFromFile("Object/box2.png");
 	std::vector<ObjColli>Objs2;
-	Objs2.push_back(ObjColli(&box2, sf::Vector2f(64.0f, 64.0f), sf::Vector2f(600.0f, 839.8f)));
+	Objs2.push_back(ObjColli(&box2, sf::Vector2f(48.0f, 48.0f), sf::Vector2f(600.0f, 847.8f)));
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;

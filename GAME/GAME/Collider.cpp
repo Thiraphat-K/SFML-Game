@@ -46,7 +46,7 @@ bool Collider::CheckCollision(Collider& other, sf::Vector2f& direction, float pu
 				direction.x = -1.0f;
 				direction.y = 0.0f;
 			}
-			//std::cout << "CLASHED X !!!" << std::endl;
+			std::cout << "CLASHED X !!!" << std::endl;
 		}
 		else
 		{
