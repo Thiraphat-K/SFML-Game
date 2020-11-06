@@ -7,10 +7,10 @@
 #include"compman.h"
 #include"ObjColli.h"
 
-static const float VIEW_HEIGHT = 900.0f;
-static const float boxes = 256.0f;
+static const float VIEW_HEIGHT = 1000.0f;
+static const float boxes = 512.0f;
 
-void ResizeView(const sf::RenderWindow& window, sf::View& view)
+void ResizeView(const sf::RenderWindow& window, sf::View& view) //ฟังก์ชั่นใช้รีไซส์วิว
 {
 	float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
 	view.setSize(VIEW_HEIGHT * aspectRatio, VIEW_HEIGHT);
@@ -36,32 +36,33 @@ int main()
 	sf::Texture box;
 	box.loadFromFile("Object/box.png");
 	std::vector<ObjColli>Objs1;
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 2, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 3, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 4, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 5, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 6, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 7, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 8, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 9, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 10, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(256.0f, 256.0f), sf::Vector2f(400.0f + boxes * 11, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 2, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 3, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 4, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 5, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 6, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 7, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 8, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 9, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 10, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 11, 1000.0f)));
 	//ObjColli box1(&box, sf::Vector2f(64.0f,64.0f), sf::Vector2f (750.0f, 800.0f));
 
 	//----box--pick----//
 	sf::Texture box2;
 	box2.loadFromFile("Object/box2.png");
 	std::vector<ObjColli>Objs2;
-	Objs2.push_back(ObjColli(&box2, sf::Vector2f(48.0f, 48.0f), sf::Vector2f(600.0f, 847.8f)));
+	Objs2.push_back(ObjColli(&box2, sf::Vector2f(48.0f, 48.0f), sf::Vector2f(600.0f, 870.0f-150.0f)));
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
-
+	float timeElasped = 0;
 
 	while (window.isOpen())
 	{
+		timeElasped += deltaTime;
 		deltaTime = clock.restart().asSeconds();
 		if (deltaTime > 1.0f / 20.0f)
 			deltaTime = 1.0f / 20.0f;
@@ -101,7 +102,8 @@ int main()
 			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 				Compman.OnCollision(direction);
 		//box1.GetCollider().CheckCollision(c, 1.0f);
-		view.setCenter(Compman.GetPosition());
+		view.setCenter(Compman.GetPosition().x   , Compman.GetPosition().y );
+
 		window.clear(sf::Color(500, 500, 500));
 		//window.draw(bg);
 		window.setView(view);
