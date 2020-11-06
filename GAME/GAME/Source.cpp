@@ -24,7 +24,7 @@ int main()
 	//***Player**//
 	sf::Texture CompmanTexture;
 	CompmanTexture.loadFromFile("Object/compmanA1.png");
-	compman Compman(&CompmanTexture, sf::Vector2u(8, 3), 0.2f, 400.0f, 200.0f);
+	compman Compman(&CompmanTexture, sf::Vector2u(8, 4), 0.2f, 400.0f, 200.0f);
 
 	//***Background**//
 	/*sf::Texture Bg;

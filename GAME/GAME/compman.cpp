@@ -7,7 +7,6 @@ compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime
 	this->jumpHeight = jumpHeight;
 	row = 0;
 	faceRight = true;
-
 	body.setSize(sf::Vector2f(75.0f, 75.0f));
 	body.setOrigin(body.getSize() / 2.2f);
 	body.setPosition(450.f, 800.f);
@@ -24,9 +23,17 @@ void compman::Update(float deltaTime)
 	velocity.x = 0.0f;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
 		velocity.x -= speed;
+		faceRight = false;
+	}
+		
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
 		velocity.x += speed;
+		faceRight = true;
+	}
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && canJump)
 	{
@@ -36,11 +43,20 @@ void compman::Update(float deltaTime)
 		std::cout << "JUMP !!!" << std::endl;
 	}
 	velocity.y += 980.0f * deltaTime;
+	std::cout << velocity.y << std::endl;
 
-	if (velocity.y != 980.f * deltaTime)
+	if (!canJump)
 	{
-		row = 2;
+		if (velocity.y < 0)
+		{
+			row = 2;
+		}
+		if (velocity.y > 0)
+		{
+			row = 3;
+		}
 	}
+	
 	else
 	{
 		if (velocity.x == 0.0f)
