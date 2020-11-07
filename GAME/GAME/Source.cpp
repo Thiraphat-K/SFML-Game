@@ -5,12 +5,14 @@
 #include<iostream>
 #include<vector>
 #include"compman.h"
+#include"Collider.h"
 #include"ObjColli.h"
+#include"hitboxtest.h"
 
 static const float VIEW_HEIGHT = 1000.0f;
 static const float boxes = 512.0f;
 
-void ResizeView(const sf::RenderWindow& window, sf::View& view) //ฟังก์ชั่นใช้รีไซส์วิว
+void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
 	float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
 	view.setSize(VIEW_HEIGHT * aspectRatio, VIEW_HEIGHT);
@@ -32,7 +34,7 @@ int main()
 	sf::Sprite bg(Bg);
 	bg.setScale(1.5, 1.5);*/
 
-	//***Box**//
+	//***BoxStage**//
 	sf::Texture box;
 	box.loadFromFile("Object/box.png");
 	std::vector<ObjColli>Objs1;
@@ -52,9 +54,14 @@ int main()
 
 	//----box--pick----//
 	sf::Texture box2;
-	box2.loadFromFile("Object/box2.png");
+	//box2.loadFromFile("Object/box2.png");
 	std::vector<ObjColli>Objs2;
-	Objs2.push_back(ObjColli(&box2, sf::Vector2f(48.0f, 48.0f), sf::Vector2f(600.0f, 870.0f-150.0f)));
+	Objs2.push_back(ObjColli(&box2, sf::Vector2f(48.0f, 48.0f), sf::Vector2f(750.0f, 648.0f)));
+	
+
+	//----hitboxtest----//
+	hitboxtest hitbox0(0, 0, Vector2f(55, Objs2[0].GetSize().x), Objs2[0].GetPosition());
+	hitboxtest hitbox1(0, 0, Vector2f(55, Compman.GetSize().x), Compman.GetPosition());
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
@@ -94,24 +101,35 @@ int main()
 
 		Compman.Update(deltaTime);
 		sf::Vector2f direction;
+
+		//--Collider Update--//
 		Collider c = Compman.GetCollider();
 		for (ObjColli& Obj : Objs1)
 			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 				Compman.OnCollision(direction);
-		for (ObjColli& Obj : Objs2)
+		/*for (ObjColli& Obj : Objs2)
 			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
-				Compman.OnCollision(direction);
+				Compman.OnCollision(direction);*/
+
+		//--hitboxtest Update--//
+		hitbox1.Update(-23.0, -34.0, Compman.GetPosition());
+		hitbox0.Update(Objs2[0].GetSize().x , Objs2[0].GetSize().y, Objs2[0].GetPosition());
+
 		//box1.GetCollider().CheckCollision(c, 1.0f);
-		view.setCenter(Compman.GetPosition().x   , Compman.GetPosition().y );
+		view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
 
 		window.clear(sf::Color(500, 500, 500));
+		
+		//--DrawEverythings--//
 		//window.draw(bg);
 		window.setView(view);
 		Compman.Draw(window);
 		for (ObjColli& Obj : Objs1)
 			Obj.Draw(window);
-		for (ObjColli& Obj : Objs2)
-			Obj.Draw(window);
+		/*for (ObjColli& Obj : Objs2)
+			Obj.Draw(window);*/
+		hitbox0.Draw(window);
+		hitbox1.Draw(window);
 		//box1.Draw(window);
 		window.display();
 	}

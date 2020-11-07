@@ -1,0 +1,38 @@
+﻿  Source.cpp
+C:\Users\Thiraphat Ketsingnoi\source\repos\CPFP\CPFP\Source.cpp(22,98): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Thiraphat Ketsingnoi\source\repos\CPFP\CPFP\Source.cpp(22,69): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Thiraphat Ketsingnoi\source\repos\CPFP\CPFP\Source.cpp(72,101): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Thiraphat Ketsingnoi\source\repos\CPFP\CPFP\Source.cpp(72,72): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+  CPFP.vcxproj -> C:\Users\Thiraphat Ketsingnoi\source\repos\CPFP\x64\Debug\CPFP.exe

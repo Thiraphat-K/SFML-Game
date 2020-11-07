@@ -149,6 +149,7 @@
     <ClCompile Include="bgstage1.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="compman.cpp" />
+    <ClCompile Include="hitboxtest.cpp" />
     <ClCompile Include="ObjColli.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <ClInclude Include="bgstage1.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="compman.h" />
+    <ClInclude Include="hitboxtest.h" />
     <ClInclude Include="ObjColli.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
