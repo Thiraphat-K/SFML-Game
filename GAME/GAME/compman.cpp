@@ -1,5 +1,7 @@
 #include "compman.h"
 
+
+
 compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight)
 	:animation(texture, imageCount, switchTime), canJump(0)
 {
@@ -9,7 +11,7 @@ compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime
 	faceRight = true;
 	body.setSize(sf::Vector2f(75.0f, 75.0f));
 	body.setOrigin(body.getSize() / 2.2f);
-	body.setPosition(450.f, 800.f);
+	body.setPosition(3130.14f, 706.5f);
 	body.setTexture(texture);
 }
 
@@ -40,10 +42,10 @@ void compman::Update(float deltaTime)
 		canJump = false;
 
 		velocity.y = -sqrtf(2.0f * 980.0f * jumpHeight);
-		std::cout << "JUMP !!!" << std::endl;
+		//std::cout << "JUMP !!!" << std::endl;
 	}
 	velocity.y += 980.0f * deltaTime;
-	std::cout << velocity.y << std::endl;
+	//std::cout << velocity.y << std::endl;
 
 	if (!canJump)
 	{
@@ -110,4 +112,10 @@ void compman::OnCollision(sf::Vector2f direction)
 	{
 		velocity.y = 0.0f;
 	}
+}
+
+const Vector2f& compman::getPosition() const
+{
+	return this->body.getPosition();
+	//cout << "Position x : " << body.getPosition().x << "\n" << "Position y : " << body.getPosition().y << "\n" << endl;
 }

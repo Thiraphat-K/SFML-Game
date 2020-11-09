@@ -9,8 +9,9 @@
 #include"ObjColli.h"
 #include"hitboxtest.h"
 
-static const float VIEW_HEIGHT = 1000.0f;
+static const float VIEW_HEIGHT = 900.0f;
 static const float boxes = 512.0f;
+using namespace std;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
@@ -20,7 +21,7 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(900, 900), "Box Way", sf::Style::Close | sf::Style::Resize);
+	sf::RenderWindow window(sf::VideoMode(1000, 900), "Box Way", sf::Style::Close | sf::Style::Resize);
 	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 
 	//***Player**//
@@ -57,7 +58,7 @@ int main()
 	//box2.loadFromFile("Object/box2.png");
 	std::vector<ObjColli>Objs2;
 	Objs2.push_back(ObjColli(&box2, sf::Vector2f(48.0f, 48.0f), sf::Vector2f(750.0f, 648.0f)));
-	
+
 
 	//----hitboxtest----//
 	hitboxtest hitbox0(0, 0, Vector2f(55, Objs2[0].GetSize().x), Objs2[0].GetPosition());
@@ -97,6 +98,7 @@ int main()
 				std::cout << "Mouse button has been released" << std::endl;
 				break;
 			}
+			cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
 		}
 
 		Compman.Update(deltaTime);
@@ -111,15 +113,45 @@ int main()
 			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 				Compman.OnCollision(direction);*/
 
-		//--hitboxtest Update--//
+				//--hitboxtest Update--//
 		hitbox1.Update(-23.0, -34.0, Compman.GetPosition());
-		hitbox0.Update(Objs2[0].GetSize().x , Objs2[0].GetSize().y, Objs2[0].GetPosition());
+		hitbox0.Update(Objs2[0].GetSize().x, Objs2[0].GetSize().y, Objs2[0].GetPosition());
 
 		//box1.GetCollider().CheckCollision(c, 1.0f);
 		view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
+		/*if (view.getCenter().x - 450.0f <= 0.0f)
+		{
+			if (view.getCenter().y - 450.0f <= 0.0f)
+			{
+				view.setCenter(450.0f, 450.0f);
+			}
+			if (view.getCenter().y + 450.0f >= 3130.14f)
+			{
+				view.setCenter(450.0f, 2680.14f);
+			}
+			if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 2680.14f)
+			{
+				view.setCenter(450.0f, Compman.GetPosition().y);
+			}
+		}
+		if (view.getCenter().x + 450.0f >= 2680.14f)
+		{
+			if (view.getCenter().y - 450.0f <= 0.0f)
+			{
+				view.setCenter(900.0f, 450.0f);
+			}
+			if (view.getCenter().y + 450.0f >= 900.0f)
+			{
+				view.setCenter(900.0f, 900.0f);
+			}
+			if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
+			{
+				view.setCenter(900.0f, Compman.GetPosition().y);
+			}
+		}*/
 
-		window.clear(sf::Color(500, 500, 500));
-		
+			window.clear(sf::Color(500, 500, 500));
+
 		//--DrawEverythings--//
 		//window.draw(bg);
 		window.setView(view);

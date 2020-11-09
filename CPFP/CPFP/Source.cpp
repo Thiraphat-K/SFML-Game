@@ -65,14 +65,12 @@ int main()
 		}
 		for (int i = 0; i < checkboxs.size(); i++)
 		{
-			if (Rshape.getGlobalBounds().intersects(checkboxs[i].getGlobalbounds()) and frag)
+			if (Rshape.getGlobalBounds().intersects(checkboxs[i].getGlobalbounds()))
 			{
-				//checkboxs.erase(checkboxs.begin() + i);
 				checkboxs.pop_back();
 				checkboxs.push_back(checkbox(Rshape.getSize(), sf::Vector2f(rand() % window.getSize().x, rand() % window.getSize().y)));
 				checkp = checkboxs[i].getPosition();
 				cout << "Position x : " << checkp.x << "\n" << "Position y : " << checkp.y << "\n" << endl;
-				frag = true;
 			}
 
 		}

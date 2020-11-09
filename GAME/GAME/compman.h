@@ -2,7 +2,9 @@
 #include<SFML/Graphics.hpp>
 #include"Animation.h"
 #include"Collider.h"
-
+#include<iostream>
+using namespace std;
+using namespace sf;
 class compman
 {
 public:
@@ -16,6 +18,8 @@ public:
 	sf::Vector2f GetPosition() { return body.getPosition(); }
 	Collider GetCollider() { return Collider(body); }
 	sf::Vector2f GetSize() { return body.getSize(); }
+
+	const Vector2f& getPosition() const;
 
 private:
 	sf::RectangleShape body;
