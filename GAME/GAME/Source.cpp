@@ -39,18 +39,18 @@ int main()
 	sf::Texture box;
 	box.loadFromFile("Object/box.png");
 	std::vector<ObjColli>Objs1;
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 2, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 3, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 4, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 5, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 6, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 7, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 8, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 9, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 10, 1000.0f)));
-	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(400.0f + boxes * 11, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 2, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 3, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 4, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 5, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 6, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 7, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 8, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 9, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 10, 1000.0f)));
+	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 11, 1000.0f)));
 	//ObjColli box1(&box, sf::Vector2f(64.0f,64.0f), sf::Vector2f (750.0f, 800.0f));
 
 	//----box--pick----//
@@ -98,7 +98,12 @@ int main()
 				std::cout << "Mouse button has been released" << std::endl;
 				break;
 			}
-			cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
+			//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
+			
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+			{
+				window.close();
+			}
 		}
 
 		Compman.Update(deltaTime);
@@ -119,36 +124,37 @@ int main()
 
 		//box1.GetCollider().CheckCollision(c, 1.0f);
 		view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
-		/*if (view.getCenter().x - 450.0f <= 0.0f)
+		if (view.getCenter().x - 450.0f <= 0.0f)
 		{
 			if (view.getCenter().y - 450.0f <= 0.0f)
 			{
-				view.setCenter(450.0f, 450.0f);
+				view.setCenter(450.0f, Compman.GetPosition().y);
 			}
-			if (view.getCenter().y + 450.0f >= 3130.14f)
+			if (view.getCenter().y + 450.0f >= 900.0f)
 			{
-				view.setCenter(450.0f, 2680.14f);
+				view.setCenter(450.0f, Compman.GetPosition().y);
 			}
-			if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 2680.14f)
+			if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
 			{
 				view.setCenter(450.0f, Compman.GetPosition().y);
 			}
 		}
-		if (view.getCenter().x + 450.0f >= 2680.14f)
+		if (view.getCenter().x + 450.0f >= 5850.f)
 		{
 			if (view.getCenter().y - 450.0f <= 0.0f)
 			{
-				view.setCenter(900.0f, 450.0f);
+				view.setCenter(5400.f, Compman.GetPosition().y);
 			}
-			if (view.getCenter().y + 450.0f >= 900.0f)
+			if (view.getCenter().y + 450.0f >= 900.0f /*|| (sf::Keyboard::isKeyPressed(sf::Keyboard::W))*/)
 			{
-				view.setCenter(900.0f, 900.0f);
+				view.setCenter(5400.f, Compman.GetPosition().y);
 			}
 			if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
 			{
-				view.setCenter(900.0f, Compman.GetPosition().y);
+				view.setCenter(5400.f, Compman.GetPosition().y);
 			}
-		}*/
+		}
+		cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
 
 			window.clear(sf::Color(500, 500, 500));
 
