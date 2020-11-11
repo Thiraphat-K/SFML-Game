@@ -56,8 +56,10 @@ int main()
 	//----box--pick----//
 	sf::Texture box2;
 	//box2.loadFromFile("Object/box2.png");
-	std::vector<ObjColli>Objs2;
+	std::vector<ObjColli>Objs2,Objs3;
 	Objs2.push_back(ObjColli(&box2, sf::Vector2f(48.0f, 48.0f), sf::Vector2f(750.0f, 648.0f)));
+	Objs3.push_back(ObjColli(&box2, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(-268.0f, 724.f)));
+	//Objs3.push_back(ObjColli(&box2, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(-232.0f, -4276.f)));
 
 
 	//----hitboxtest----//
@@ -98,7 +100,7 @@ int main()
 				std::cout << "Mouse button has been released" << std::endl;
 				break;
 			}
-			//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
+			cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
 			
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 			{
@@ -114,9 +116,9 @@ int main()
 		for (ObjColli& Obj : Objs1)
 			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 				Compman.OnCollision(direction);
-		/*for (ObjColli& Obj : Objs2)
+		for (ObjColli& Obj : Objs3)
 			if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
-				Compman.OnCollision(direction);*/
+				Compman.OnCollision(direction);
 
 				//--hitboxtest Update--//
 		hitbox1.Update(-23.0, -34.0, Compman.GetPosition());
@@ -124,39 +126,39 @@ int main()
 
 		//box1.GetCollider().CheckCollision(c, 1.0f);
 		view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
-		if (view.getCenter().x - 450.0f <= 0.0f)
+		if (view.getCenter().x - 195.0f <= 0.0f)
 		{
 			if (view.getCenter().y - 450.0f <= 0.0f)
 			{
-				view.setCenter(450.0f, Compman.GetPosition().y);
+				view.setCenter(195.f, Compman.GetPosition().y);
 			}
 			if (view.getCenter().y + 450.0f >= 900.0f)
 			{
-				view.setCenter(450.0f, Compman.GetPosition().y);
+				view.setCenter(195.f, Compman.GetPosition().y);
 			}
 			if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
 			{
-				view.setCenter(450.0f, Compman.GetPosition().y);
+				view.setCenter(195.f, Compman.GetPosition().y);
 			}
 		}
-		if (view.getCenter().x + 450.0f >= 5850.f)
+		if (view.getCenter().x + 415.0f >= 5850.f)
 		{
 			if (view.getCenter().y - 450.0f <= 0.0f)
 			{
-				view.setCenter(5400.f, Compman.GetPosition().y);
+				view.setCenter(5435.f, Compman.GetPosition().y);
 			}
-			if (view.getCenter().y + 450.0f >= 900.0f /*|| (sf::Keyboard::isKeyPressed(sf::Keyboard::W))*/)
+			if (view.getCenter().y + 450.0f >= 900.0f)
 			{
-				view.setCenter(5400.f, Compman.GetPosition().y);
+				view.setCenter(5435.f, Compman.GetPosition().y);
 			}
 			if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
 			{
-				view.setCenter(5400.f, Compman.GetPosition().y);
+				view.setCenter(5435.f, Compman.GetPosition().y);
 			}
 		}
-		cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
+		//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
 
-			window.clear(sf::Color(500, 500, 500));
+			window.clear(/*sf::Color(500, 500, 500)*/);
 
 		//--DrawEverythings--//
 		//window.draw(bg);
@@ -164,8 +166,8 @@ int main()
 		Compman.Draw(window);
 		for (ObjColli& Obj : Objs1)
 			Obj.Draw(window);
-		/*for (ObjColli& Obj : Objs2)
-			Obj.Draw(window);*/
+		for (ObjColli& Obj : Objs3)
+			Obj.Draw(window);
 		hitbox0.Draw(window);
 		hitbox1.Draw(window);
 		//box1.Draw(window);

@@ -11,7 +11,8 @@ compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime
 	faceRight = true;
 	body.setSize(sf::Vector2f(75.0f, 75.0f));
 	body.setOrigin(body.getSize() / 2.2f);
-	body.setPosition(3130.14f, 706.5f);
+	body.setPosition(200.14f, 706.5f);
+	//body.setPosition(3130.14f, 706.5f);
 	body.setTexture(texture);
 }
 
@@ -117,5 +118,4 @@ void compman::OnCollision(sf::Vector2f direction)
 const Vector2f& compman::getPosition() const
 {
 	return this->body.getPosition();
-	//cout << "Position x : " << body.getPosition().x << "\n" << "Position y : " << body.getPosition().y << "\n" << endl;
 }
