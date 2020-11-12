@@ -21,7 +21,7 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1000, 900), "Box Way", sf::Style::Close | sf::Style::Resize);
+	sf::RenderWindow window(sf::VideoMode(1000, 900), "Box Way", sf::Style::Close /*| sf::Style::Resize*/);
 	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 
 	//***Player**//
@@ -30,10 +30,11 @@ int main()
 	compman Compman(&CompmanTexture, sf::Vector2u(8, 4), 0.2f, 400.0f, 200.0f);
 
 	//***Background**//
-	/*sf::Texture Bg;
-	Bg.loadFromFile("Object/FezBg1.jpg");
+	sf::Texture Bg;
+	Bg.loadFromFile("Object/grid.png");
 	sf::Sprite bg(Bg);
-	bg.setScale(1.5, 1.5);*/
+	bg.setScale(1.5, 1.5);
+	bg.setPosition(2048.f, -254.f);
 
 	//***BoxStage**//
 	sf::Texture box;
@@ -51,20 +52,18 @@ int main()
 	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 9, 1000.0f)));
 	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 10, 1000.0f)));
 	Objs1.push_back(ObjColli(&box, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 11, 1000.0f)));
-	//ObjColli box1(&box, sf::Vector2f(64.0f,64.0f), sf::Vector2f (750.0f, 800.0f));
 
 	//----box--pick----//
 	sf::Texture box2;
-	//box2.loadFromFile("Object/box2.png");
 	std::vector<ObjColli>Objs2,Objs3;
 	Objs2.push_back(ObjColli(&box2, sf::Vector2f(48.0f, 48.0f), sf::Vector2f(750.0f, 648.0f)));
 	Objs3.push_back(ObjColli(&box2, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(-268.0f, 724.f)));
-	//Objs3.push_back(ObjColli(&box2, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(-232.0f, -4276.f)));
+	Objs3.push_back(ObjColli(&box2, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(5890.f, 724.f)));
 
 
 	//----hitboxtest----//
 	hitboxtest hitbox0(0, 0, Vector2f(55, Objs2[0].GetSize().x), Objs2[0].GetPosition());
-	hitboxtest hitbox1(0, 0, Vector2f(55, Compman.GetSize().x), Compman.GetPosition());
+	hitboxtest hitbox1(0, 0, Vector2f(50, Compman.GetSize().x), Compman.GetPosition());
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
@@ -121,10 +120,9 @@ int main()
 				Compman.OnCollision(direction);
 
 				//--hitboxtest Update--//
-		hitbox1.Update(-23.0, -34.0, Compman.GetPosition());
+		hitbox1.Update(-22.0, -37.0, Compman.GetPosition());
 		hitbox0.Update(Objs2[0].GetSize().x, Objs2[0].GetSize().y, Objs2[0].GetPosition());
 
-		//box1.GetCollider().CheckCollision(c, 1.0f);
 		view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
 		if (view.getCenter().x - 195.0f <= 0.0f)
 		{
@@ -158,10 +156,10 @@ int main()
 		}
 		//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
 
-			window.clear(/*sf::Color(500, 500, 500)*/);
+			window.clear(sf::Color(255, 255, 255));
 
 		//--DrawEverythings--//
-		//window.draw(bg);
+		window.draw(bg);
 		window.setView(view);
 		Compman.Draw(window);
 		for (ObjColli& Obj : Objs1)
@@ -170,7 +168,6 @@ int main()
 			Obj.Draw(window);
 		hitbox0.Draw(window);
 		hitbox1.Draw(window);
-		//box1.Draw(window);
 		window.display();
 	}
 
