@@ -8,6 +8,7 @@
 #include"Collider.h"
 #include"ObjColli.h"
 #include"hitboxtest.h"
+#include"TextFont.h"
 
 static const float VIEW_HEIGHT = 900.0f;
 static const float boxes = 512.0f;
@@ -33,8 +34,8 @@ int main()
 	sf::Texture Bg;
 	Bg.loadFromFile("Object/grid.png");
 	sf::Sprite bg(Bg);
-	bg.setScale(1.5, 1.5);
-	bg.setPosition(2048.f, -254.f);
+	bg.setScale(1.2, 1.2);
+	bg.setPosition(2048.f, -55.f);
 
 	//***BoxStage**//
 	sf::Texture box;
@@ -65,9 +66,13 @@ int main()
 	hitboxtest hitbox0(0, 0, Vector2f(55, Objs2[0].GetSize().x), Objs2[0].GetPosition());
 	hitboxtest hitbox1(0, 0, Vector2f(50, Compman.GetSize().x), Compman.GetPosition());
 
+	//--Text--//
+	TextFont text1;
+
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
 	float timeElasped = 0;
+	float GameTime = 120;
 
 	while (window.isOpen())
 	{
@@ -75,6 +80,7 @@ int main()
 		deltaTime = clock.restart().asSeconds();
 		if (deltaTime > 1.0f / 20.0f)
 			deltaTime = 1.0f / 20.0f;
+		GameTime -= deltaTime;
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -168,7 +174,9 @@ int main()
 			Obj.Draw(window);
 		hitbox0.Draw(window);
 		hitbox1.Draw(window);
+		text1.drawtext((float)GameTime, (string) "Time : ", (string) "s" , sf::Vector2f(view.getCenter().x +(window.getSize().x/2)-250 , view.getCenter().y - (window.getSize().y/2)+20), window);
 		window.display();
+		
 	}
 
 	return 0;

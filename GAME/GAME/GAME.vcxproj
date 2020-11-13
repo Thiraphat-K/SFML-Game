@@ -152,6 +152,7 @@
     <ClCompile Include="hitboxtest.cpp" />
     <ClCompile Include="ObjColli.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TextFont.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="compman.h" />
     <ClInclude Include="hitboxtest.h" />
     <ClInclude Include="ObjColli.h" />
+    <ClInclude Include="TextFont.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
