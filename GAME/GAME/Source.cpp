@@ -68,11 +68,13 @@ int main()
 
 	//--Text--//
 	TextFont text1;
+	TextFont text2;
 
 	float deltaTime = 1500.0f;
 	sf::Clock clock;
 	float timeElasped = 0;
-	float GameTime = 120;
+	float GameTime = 5;
+	float PointTime = 5;
 
 	while (window.isOpen())
 	{
@@ -80,7 +82,12 @@ int main()
 		deltaTime = clock.restart().asSeconds();
 		if (deltaTime > 1.0f / 20.0f)
 			deltaTime = 1.0f / 20.0f;
-		GameTime -= deltaTime;
+		if (GameTime > 0)
+			GameTime -= deltaTime;
+		if (GameTime <= 0)
+			PointTime -= deltaTime;
+		if (PointTime <= 0)
+			PointTime = 0;
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -174,7 +181,8 @@ int main()
 			Obj.Draw(window);
 		hitbox0.Draw(window);
 		hitbox1.Draw(window);
-		text1.drawtext((float)GameTime, (string) "Time : ", (string) "s" , sf::Vector2f(view.getCenter().x +(window.getSize().x/2)-250 , view.getCenter().y - (window.getSize().y/2)+20), window);
+		text1.drawtext((float)abs(GameTime), (string) "Time : ", (string) " s" , sf::Vector2f(view.getCenter().x +(window.getSize().x/2)-240 , view.getCenter().y - (window.getSize().y/2)+20), window, sf::Color(255,0,0));
+		text1.drawtext((int)abs(PointTime), (string)"Point : ", (string)"", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 240, view.getCenter().y - (window.getSize().y / 2) + 55), window, sf::Color(255, 150, 0));
 		window.display();
 		
 	}
