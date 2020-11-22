@@ -1,9 +1,5 @@
 #pragma once
-#include<SFML/Graphics.hpp>
-#include<iostream>
-#include<sstream>
-#include <iomanip>
-#include <string.h>
+#include"Anyinclude.h"
 using namespace std;
 
 class TextFont

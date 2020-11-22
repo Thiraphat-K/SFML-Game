@@ -114,6 +114,18 @@ void compman::OnCollision(sf::Vector2f direction)
 	}
 }
 
+
+
+const FloatRect compman::getGlobalbounds() const
+{
+	return this->body.getGlobalBounds();
+}
+
+bool compman::intersects(const sf::FloatRect& frect)
+{
+	return this->body.getGlobalBounds().intersects(frect);
+}
+
 const Vector2f& compman::getPosition() const
 {
 	return this->body.getPosition();

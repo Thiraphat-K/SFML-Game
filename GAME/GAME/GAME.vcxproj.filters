@@ -30,13 +30,16 @@
     <ClCompile Include="ObjColli.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bgstage1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="hitboxtest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextFont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Anyinclude.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,13 +56,16 @@
     <ClInclude Include="ObjColli.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bgstage1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="hitboxtest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextFont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Anyinclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,8 +1,7 @@
 #pragma once
-#include<SFML/Graphics.hpp>
+#include"Anyinclude.h"
 #include"Animation.h"
 #include"Collider.h"
-#include<iostream>
 using namespace std;
 using namespace sf;
 class compman
@@ -18,7 +17,8 @@ public:
 	sf::Vector2f GetPosition() { return body.getPosition(); }
 	Collider GetCollider() { return Collider(body); }
 	sf::Vector2f GetSize() { return body.getSize(); }
-
+	const FloatRect getGlobalbounds() const;
+	bool intersects(const sf::FloatRect& frect);
 	const Vector2f& getPosition() const;
 
 private:

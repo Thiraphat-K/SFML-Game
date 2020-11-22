@@ -146,10 +146,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="checkbox.cpp" />
+    <ClCompile Include="ExampleStateA.cpp" />
+    <ClCompile Include="ExampleStateB.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="VirtualScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkbox.h" />
+    <ClInclude Include="ExampleStateA.h" />
+    <ClInclude Include="ExampleStateB.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="VirtualScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
