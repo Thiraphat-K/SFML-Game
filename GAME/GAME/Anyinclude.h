@@ -7,3 +7,5 @@
 #include<SFML/Window.hpp>
 #include<cmath>
 #include<vector>
+
+#define Max_Items 4 //Start HighScore Guide Quit

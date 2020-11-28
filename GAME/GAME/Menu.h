@@ -1,6 +1,6 @@
 #pragma once
 #include"Anyinclude.h"
-#define Max_Items 4 //Start HighScore Guide Quit
+
 class Menu
 {
 public:
@@ -12,9 +12,11 @@ public:
 	void Movedown();
 	int GetPressedItem() { return selectedItem; }
 
-private:
 	int selectedItem = 0;
+private:
 	sf::Font font;
-	sf::Text menu[Max_Items];
+	sf::Texture menuTexture[Max_Items];
+	sf::Sprite menupic[Max_Items];
+
 };
 

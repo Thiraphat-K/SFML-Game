@@ -1,14 +1,2 @@
-﻿  Source.cpp
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(22,48): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(22,28): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(94,24): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(241,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Menu.cpp
   GAME.vcxproj -> C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\x64\Debug\GAME.exe
