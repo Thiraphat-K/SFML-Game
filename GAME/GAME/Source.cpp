@@ -24,6 +24,12 @@ int main()
 	sf::Texture MNp;
 	MNp.loadFromFile("Object/Menu/MenuP.png");
 
+	sf::Music menums;
+	menums.openFromFile("Object/Menu/menusound.wav");
+	menums.setVolume(50);
+	menums.setLoop(true);
+	menums.play();
+
 	sf::Sprite BGmn;
 	BGmn.setTexture(MNp);
 
@@ -61,19 +67,21 @@ int main()
 					case 0:
 						cout << "Start has been pressed" << endl;
 						//go to state
+						menums.stop();
 						Game_State = 1;
 						checkGameOpen = true;
 						break;
 					case 1:
-						cout << "HighScore has been pressed" << endl;
+						cout << "Guide has been pressed" << endl;
 						//go to state
 						break;
 					case 2:
-						cout << "Guide has been pressed" << endl;
+						cout << "HighScore has been pressed" << endl;
 						//go to state
 						break;
 					case 3:
 						window.close();
+						menums.stop();
 						break;
 					}
 					break;
@@ -99,6 +107,12 @@ int main()
 		if (Game_State == 1)
 		{
 			sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
+
+			sf::Music stage1;
+			stage1.openFromFile("Object/stage1.wav");
+			stage1.setVolume(50);
+			stage1.setLoop(true);
+			stage1.play();
 
 			//***Player**//
 			sf::Texture CompmanTexture;
@@ -191,7 +205,7 @@ int main()
 					}
 					//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
 
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 					{
 						window.close();
 					}

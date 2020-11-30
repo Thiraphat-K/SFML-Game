@@ -40,7 +40,7 @@ void Menu::draw(sf::RenderWindow& window)
 	{
 		window.draw(this->menupic[i]);
 	}
-	std::cout << selectedItem << std::endl;
+	//std::cout << selectedItem << std::endl;
 }
 
 void Menu::Moveup()
