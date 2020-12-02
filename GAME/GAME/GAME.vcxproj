@@ -152,6 +152,7 @@
     <ClCompile Include="hitboxtest.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="ObjColli.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TextFont.cpp" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="hitboxtest.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="ObjColli.h" />
+    <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="TextFont.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

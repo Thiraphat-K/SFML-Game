@@ -1,4 +1,22 @@
-﻿  Source.cpp
+﻿  Animation.cpp
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Animation.cpp(10,38): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Animation.cpp(11,39): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+  Anyinclude.cpp
+  Collider.cpp
+  compman.cpp
+  hitboxtest.cpp
+  Menu.cpp
+  ObjColli.cpp
+  PauseMenu.cpp
+  Source.cpp
 C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(22,48): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
@@ -11,4 +29,6 @@ C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(22,28): warning 
           ]
 C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(126,24): warning C4305: 'argument': truncation from 'double' to 'float'
 C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(276,28): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  TextFont.cpp
+  Generating Code...
   GAME.vcxproj -> C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\x64\Debug\GAME.exe

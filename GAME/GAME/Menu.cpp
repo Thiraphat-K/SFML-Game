@@ -45,7 +45,7 @@ void Menu::draw(sf::RenderWindow& window)
 
 void Menu::Moveup()
 {
-	if (selectedItem-1 >= 0)
+	if (selectedItem - 1 >= 0)
 	{
 		this->menupic[selectedItem].setTextureRect(sf::IntRect(0, 0, menuTexture[selectedItem].getSize().x / 2, menuTexture[selectedItem].getSize().y));
 		this->selectedItem--;
@@ -56,7 +56,7 @@ void Menu::Moveup()
 
 void Menu::Movedown()
 {
-	if (selectedItem +1 < Max_Items )
+	if (selectedItem + 1 < Max_Items)
 	{
 		this->menupic[selectedItem].setTextureRect(sf::IntRect(0, 0, menuTexture[selectedItem].getSize().x / 2, menuTexture[selectedItem].getSize().y));
 		this->selectedItem++;

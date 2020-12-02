@@ -14,7 +14,6 @@ public:
 
 	int selectedItem = 0;
 private:
-	sf::Font font;
 	sf::Texture menuTexture[Max_Items];
 	sf::Sprite menupic[Max_Items];
 

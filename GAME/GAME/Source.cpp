@@ -1,10 +1,5 @@
 #include"Anyinclude.h"
-#include"compman.h"
-#include"Collider.h"
-#include"ObjColli.h"
-#include"hitboxtest.h"
-#include"TextFont.h"
-#include"Menu.h"
+
 
 static const float VIEW_HEIGHT = 900.0f;
 static const float boxes = 512.0f;
@@ -36,6 +31,7 @@ int main()
 	//init state
 	bool checkGameOpen = false;
 	int Game_State = 0;
+	int P_State = 0;
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -554,6 +550,11 @@ int main()
 			//			Obj.Draw(window);
 			//		window.display();
 			//}
+
+		/*if (P_State == 0)
+		{
+			PauseMenu Pmenu(300.f, 500.f);
+		}*/
 	}
 
 	return 0;
