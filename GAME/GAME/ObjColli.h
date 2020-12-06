@@ -1,6 +1,7 @@
 #pragma once
 #include"Anyinclude.h"
 #include"Collider.h"
+using namespace sf;
 
 class ObjColli
 {
@@ -14,6 +15,7 @@ public:
 	sf::FloatRect GetGlobalbound() { return body.getGlobalBounds(); }
 	Collider GetCollider() { return Collider(body); }
 	sf::Vector2f GetSize() { return body.getSize(); }
+	const Vector2f& getPosition() const;
 
 private:
 	sf::RectangleShape body;

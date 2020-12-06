@@ -5,7 +5,7 @@ hitboxtest::hitboxtest(float offset_x, float offset_y, Vector2f size, Vector2f c
 	hitbox.setSize(size);
 	hitbox.setPosition(compmposition.x + offset_x, compmposition.y + offset_y);
 	hitbox.setFillColor(Color::Transparent);
-	hitbox.setOutlineThickness(2.f);
+	hitbox.setOutlineThickness(1.5f);
 	hitbox.setOutlineColor(Color::Red);
 }
 

@@ -16,3 +16,8 @@ void ObjColli::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
 }
+
+const Vector2f& ObjColli::getPosition() const
+{
+	return this->body.getPosition();
+}
