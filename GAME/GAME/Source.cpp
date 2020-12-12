@@ -40,6 +40,7 @@ int main()
 	TextFont NameT;
 
 	//init state
+	bool checkColli = false;
 	bool checkGameOpen = false;
 	bool p_Menu = false;
 	int Game_State = 0;
@@ -155,8 +156,8 @@ int main()
 		box2.loadFromFile("Object/box2.png");
 		std::vector<ObjColli>Objs2;
 		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 717.0f)));
-		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 717.0f - boxes_pick)));
-		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 717.0f - boxes_pick * 2)));
+		//Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 717.0f - boxes_pick)));
+		//Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 717.0f - boxes_pick * 2)));
 
 		//---Limit Stage---//
 		sf::Texture box3;
@@ -220,10 +221,13 @@ int main()
 					break;
 				}
 				//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
-
-				if (Keyboard::isKeyPressed(Keyboard::Space))
+				sf::Vector2f Posi = Compman.getPosition();
+				if ((Keyboard::isKeyPressed(Keyboard::Space)) && checkColli == true)
 				{
-
+					Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), Posi));
+					//Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), Posi));
+					//Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), Posi));
+					cout << "Space has been pressed" << endl;
 				}
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -242,8 +246,18 @@ int main()
 				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 					Compman.OnCollision(direction);
 			for (ObjColli& Obj : Objs2)
+			{
 				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
+				{
+					checkColli = true;
 					Compman.OnCollision(direction);
+					cout << "Collision" << endl;
+				}
+				else
+				{
+					checkColli = false;
+				}
+			}
 			for (ObjColli& Obj : Objs3)
 				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 					Compman.OnCollision(direction);

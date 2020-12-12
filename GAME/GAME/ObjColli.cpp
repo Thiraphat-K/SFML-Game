@@ -21,3 +21,13 @@ const Vector2f& ObjColli::getPosition() const
 {
 	return this->body.getPosition();
 }
+
+const FloatRect ObjColli::getGlobalbounds() const
+{
+	return this->body.getGlobalBounds();
+}
+
+bool ObjColli::intersects(const sf::FloatRect& frect)
+{
+	return this->body.getGlobalBounds().intersects(frect);
+}

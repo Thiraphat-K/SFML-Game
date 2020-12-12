@@ -16,6 +16,8 @@ public:
 	Collider GetCollider() { return Collider(body); }
 	sf::Vector2f GetSize() { return body.getSize(); }
 	const Vector2f& getPosition() const;
+	const FloatRect getGlobalbounds() const;
+	bool intersects(const sf::FloatRect& frect);
 
 private:
 	sf::RectangleShape body;
