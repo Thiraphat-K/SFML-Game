@@ -1,7 +1,6 @@
 #include "compman.h"
 
 
-
 compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float speed, float jumpHeight)
 	:animation(texture, imageCount, switchTime), canJump(0)
 {
@@ -13,6 +12,7 @@ compman::compman(sf::Texture* texture, sf::Vector2u imageCount, float switchTime
 	body.setOrigin(body.getSize() / 2.2f);
 	body.setPosition(3072.f, 706.5f);
 	body.setTexture(texture);
+	Hold = false;
 }
 
 compman::~compman()
@@ -114,8 +114,6 @@ void compman::OnCollision(sf::Vector2f direction)
 	}
 }
 
-
-
 const FloatRect compman::getGlobalbounds() const
 {
 	return this->body.getGlobalBounds();
@@ -129,4 +127,19 @@ bool compman::intersects(const sf::FloatRect& frect)
 const Vector2f& compman::getPosition() const
 {
 	return this->body.getPosition();
+}
+
+bool compman::getHold()
+{
+	return Hold;
+}
+
+void compman::setHold(bool nHold)
+{
+	Hold = nHold;
+}
+
+bool compman::getcanJump()
+{
+	return canJump;
 }

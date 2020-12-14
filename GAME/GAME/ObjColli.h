@@ -18,8 +18,15 @@ public:
 	const Vector2f& getPosition() const;
 	const FloatRect getGlobalbounds() const;
 	bool intersects(const sf::FloatRect& frect);
+	void Update(float deltaTime, Vector2f CompmanPosition);
+	void Oncollision(Vector2f direction);
+	bool getPickObj();
+	void setPickObj(bool Pick);
+	RectangleShape& getbody();
 
 private:
 	sf::RectangleShape body;
+	sf::Vector2f velocity;
+	bool PickObj;
 };
 

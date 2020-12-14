@@ -11,6 +11,8 @@ static const float VIEW_HEIGHT = 900.0f;
 static const float boxes = 512.0f;
 static const float boxes_pick = 54.0f;
 using namespace std;
+float max_spacebartimer = 500;
+float spacebartimer = 0;
 
 void ResizeView(const sf::RenderWindow& window, sf::View& view)
 {
@@ -125,14 +127,7 @@ int main()
 		//***Player**//
 		sf::Texture CompmanTexture;
 		CompmanTexture.loadFromFile("Object/compmanA1.png");
-		compman Compman(&CompmanTexture, sf::Vector2u(8, 4), 0.2f, 400.0f, 200.0f);
-
-		//***Background**//
-		sf::Texture Bg;
-		Bg.loadFromFile("Object/grid.png");
-		sf::Sprite bg(Bg);
-		bg.setScale(1.2, 1.2);
-		bg.setPosition(2048.f, -55.f);
+		compman Compman(&CompmanTexture, sf::Vector2u(8, 4), 0.2f, 350.0f, 200.0f);
 
 		//***BoxStage**//
 		sf::Texture box;
@@ -155,9 +150,11 @@ int main()
 		sf::Texture box2;
 		box2.loadFromFile("Object/box2.png");
 		std::vector<ObjColli>Objs2;
-		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 717.0f)));
-		//Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 717.0f - boxes_pick)));
-		//Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 717.0f - boxes_pick * 2)));
+		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2500.0f, 500.0f)));
+		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2200.0f, 600.0f)));
+		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2700.0f, 500.0f)));
+		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2900.0f, 600.0f)));
+		Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(2000.0f, 500.0f)));
 
 		//---Limit Stage---//
 		sf::Texture box3;
@@ -170,9 +167,6 @@ int main()
 		hitboxtest hitbox0(0, 0, Vector2f(54, Objs2[0].GetSize().x), Objs2[0].GetPosition());
 		hitboxtest hitbox1(0, 0, Vector2f(50, Compman.GetSize().x), Compman.GetPosition());
 
-		//---hitbox_pickup---//
-		hitboxtest pickup_L(0, 0, Vector2f(20, Compman.GetSize().x / 2), hitbox1.getPosition());
-		hitboxtest pickup_R(0, 0, Vector2f(20, Compman.GetSize().x / 2), hitbox1.getPosition());
 
 		//--Text--//
 		TextFont text1;
@@ -222,13 +216,6 @@ int main()
 				}
 				//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
 				sf::Vector2f Posi = Compman.getPosition();
-				if ((Keyboard::isKeyPressed(Keyboard::Space)) && checkColli == true)
-				{
-					Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), Posi));
-					//Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), Posi));
-					//Objs2.push_back(ObjColli(&box2, sf::Vector2f(54.0f, 54.0f), Posi));
-					cout << "Space has been pressed" << endl;
-				}
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				{
@@ -237,35 +224,70 @@ int main()
 				}
 			}
 
+			spacebartimer += 1;
 			Compman.Update(deltaTime);
 			sf::Vector2f direction;
-
 			//--Collider_Update--//
 			Collider c = Compman.GetCollider();
 			for (ObjColli& Obj : Objs1)
-				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
-					Compman.OnCollision(direction);
-			for (ObjColli& Obj : Objs2)
 			{
+				Collider O = Obj.GetCollider();
 				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 				{
-					checkColli = true;
 					Compman.OnCollision(direction);
-					cout << "Collision" << endl;
 				}
-				else
+				for (ObjColli& Obj2 : Objs2)
 				{
-					checkColli = false;
+					if (Obj2.GetCollider().CheckCollision(O, direction, 0.0f))
+					{
+						Obj2.Oncollision(direction);
+					}
+				}
+			}
+			//---Hold_Obj---//
+			for (int i = 0;i<Objs2.size();i++)
+			{
+				Objs2[i].Update(deltaTime , Compman.getPosition());
+				if (Objs2[i].GetCollider().CheckCollision(c, direction, 0.0f))
+				{
+					if (Objs2[i].getPickObj() == false)
+					{
+						Compman.OnCollision(direction);
+						//cout << "Collision" << endl;
+					}
+					if ((Keyboard::isKeyPressed(Keyboard::Space))&& spacebartimer >= max_spacebartimer && Compman.getHold() == false && Objs2[i].getPickObj() == false && Compman.getPosition().y >= Objs2[i].getbody().getPosition().y-20 && Compman.getPosition().y <= Objs2[i].getbody().getPosition().y + 20) {
+						spacebartimer = 0;
+						Objs2[i].setPickObj(true);
+						Compman.setHold(true);
+					}
+					if (Objs2[i].getPickObj() == true && (Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getcanJump() == false)
+					{
+						spacebartimer = 0;
+						Objs2[i].getbody().setPosition(Compman.getPosition().x, Compman.getPosition().y+60);
+						Compman.setHold(false);
+						Objs2[i].setPickObj(false);
+					}
+				}
+				Collider o = Objs2[i].GetCollider();
+				for (int j=0 ; j<Objs2.size();j++)
+				{
+					if (i != j)
+					{
+						if (Objs2[j].GetCollider().CheckCollision(o, direction, 0.0f))
+						{
+							Objs2[i].Oncollision(direction);
+						}
+					}
 				}
 			}
 			for (ObjColli& Obj : Objs3)
+			{
 				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 					Compman.OnCollision(direction);
+			}
 
 			//--hitboxtest_Update--//
 			hitbox1.Update(-21.5, -35.5, Compman.GetPosition());
-			pickup_L.Update(-21.5, 30.0, hitbox1.getPosition());
-			pickup_R.Update(51.5, 30.0, hitbox1.getPosition());
 			hitbox0.Update(-27, -27, Objs2[0].GetPosition());
 
 			//----------Set_View----------//
@@ -303,8 +325,6 @@ int main()
 			//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
 
 			window.clear(sf::Color(255, 255, 255));
-			//--DrawEverythings--//
-			window.draw(bg);
 			window.setView(view);
 			Compman.Draw(window);
 			for (ObjColli& Obj : Objs1)
@@ -313,10 +333,8 @@ int main()
 				Obj.Draw(window);
 			for (ObjColli& Obj : Objs3)
 				Obj.Draw(window);
-			hitbox0.Draw(window);
-			hitbox1.Draw(window);
-			pickup_L.Draw(window);
-			pickup_R.Draw(window);
+			/*hitbox0.Draw(window);
+			hitbox1.Draw(window);*/
 			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 200, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
 			text2.drawtext((int)abs(PointTime), (string)"Point : ", (string)"", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 200, view.getCenter().y - (window.getSize().y / 2) + 55), window, sf::Color(255, 150, 0));
 			window.display();
@@ -330,12 +348,6 @@ int main()
 		//{
 		//	sf::View view(sf::Vector2f(1.0f, 1.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 
-		//	//***Background**//
-		//	sf::Texture Bg;
-		//	Bg.loadFromFile("Object/grid.png");
-		//	sf::Sprite bg(Bg);
-		//	bg.setScale(1.2, 1.2);
-		//	bg.setPosition(2048.f, -55.f);
 
 		//	//***BoxStage**//
 		//	sf::Texture box;
