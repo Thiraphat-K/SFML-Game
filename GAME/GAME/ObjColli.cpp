@@ -45,7 +45,7 @@ void ObjColli::Update(float deltaTime, Vector2f CompmanPosition)
 	}
 	else
 	{
-		body.setPosition(CompmanPosition.x+2.5, CompmanPosition.y-56);
+		body.setPosition(CompmanPosition.x+2.5, CompmanPosition.y-60);
 	}
 }
 
