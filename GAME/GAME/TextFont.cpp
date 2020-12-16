@@ -17,7 +17,7 @@ void TextFont::drawtext(float judpai, string frontword ,string backword  , sf::V
 	text.setFillColor(color);
 	text.setPosition(position);
 	stringstream num,life;
-	num << frontword << fixed <<  setprecision(0) << judpai << backword;
+	num << frontword << fixed <<  setprecision(2) << judpai << backword;
 	text.setString(num.str());
 	window.draw(text);
 }

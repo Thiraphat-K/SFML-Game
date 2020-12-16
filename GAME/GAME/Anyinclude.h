@@ -8,6 +8,7 @@
 #include<SFML/Audio.hpp>
 #include<cmath>
 #include<vector>
+#include <fstream>
 
 #define Max_Items 4 //Start HighScore Guide Quit
 #define PMax_Items 3

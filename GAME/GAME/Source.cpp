@@ -10,7 +10,7 @@
 static const float VIEW_HEIGHT = 900.0f;
 static const float boxes = 512.0f;
 using namespace std;
-float max_spacebartimer = 500;
+float max_spacebartimer = 450;
 float spacebartimer = 0;
 static const float eraseObj = 7000.0f;
 
@@ -54,9 +54,15 @@ int main()
 	Sprite pause_bg;
 	pause_bg.setTexture(BGpmn);
 
+	sf::Texture CompmanTexture;
+	CompmanTexture.loadFromFile("Object/compmanA1.png");
+	compman Compman(&CompmanTexture, sf::Vector2u(8, 4), 0.2f, 350.0f, 150.0f);
 
 	TextFont SDid;
 	TextFont NameT;
+
+	Font font;
+	font.loadFromFile("Object/cour.ttf");
 
 	//init state
 	bool checkColli = false;
@@ -65,6 +71,8 @@ int main()
 	bool Game = false;
 	int Game_State = 0;
 	int P_State = 0;
+	float deltaTime = 1500.0f;
+	float GameTime = 0;
 
 	while (window.isOpen())
 	{
@@ -111,8 +119,7 @@ int main()
 					case 2:
 						cout << "HighScore has been pressed" << endl;
 						//go to state
-						menums.stop();
-						Game_State = 5;
+						Game_State = 6;
 						checkGameOpen = true;
 						break;
 					case 3:
@@ -147,8 +154,6 @@ int main()
 		Gpo.setTexture(Gp1);
 
 		int Guide_State = 0;
-		bool Guide_n = false;
-		bool checkGuide = false;
 		double deTime = 0;
 		while (window.isOpen() && Game_State == 4)
 		{
@@ -199,6 +204,97 @@ int main()
 
 		}
 	}
+
+	if (Game_State == 6)
+	{
+		cout << "in";
+		sf::Clock deCLK = sf::Clock();
+		double debounce;
+		Texture hScore;
+		hScore.loadFromFile("Object/HScore.png");
+		Sprite HS;
+		HS.setTexture(hScore);
+
+		int HS_State = 0;
+		double deTime = 0;
+		bool scorenaja = false;
+
+		int cnt = 0;
+
+		vector<pair<int, string>> scoreboard;
+
+		scoreboard.clear();
+		ifstream loadFile;
+		loadFile.open("HS.txt");
+		if (!loadFile.eof()) {
+			string tempName;
+			int tempScore;
+			loadFile >> tempName >> tempScore;
+			scoreboard.push_back({ tempScore,tempName });
+			cout << "xxx";
+		}
+		loadFile.close();
+
+		sort(scoreboard.begin(), scoreboard.end(), greater<pair<int, string>>());
+		while (window.isOpen() && Game_State == 6)
+		{
+			sf::Event event;
+			if (window.pollEvent(event))
+			{
+				switch (event.type)
+				{
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::MouseButtonPressed:
+					cout << "Mouse button has been pressed" << endl;
+					switch (event.key.code)
+					{
+					case sf::Mouse::Left:
+						cout << "LEFT KEY has been pressed" << endl;
+						break;
+					}
+					break;
+				case sf::Event::MouseButtonReleased:
+					cout << "Mouse button has been released" << endl;
+					break;
+				}
+			}
+			if (HS_State == 0)
+			{
+				window.clear();
+				window.draw(HS);
+				for (vector<pair<int, string>>::iterator k = scoreboard.begin(); k != scoreboard.end(); ++k)
+				{
+					++cnt;
+					if (cnt > 5)
+						break;
+
+					sf::Text hname, hscore;
+					hscore.setString(to_string(k->first));
+					cout << k->second;
+					hscore.setFont(font);
+					hscore.setCharacterSize(20);
+					hscore.setPosition(100, 100 + (80 * cnt));
+					hscore.setFillColor(sf::Color::Black);
+					window.draw(hscore);
+					hname.setString(k->second);
+					hname.setFont(font);
+					hname.setCharacterSize(20);
+					hname.setPosition(100, 100 + (80 * cnt));
+					hname.setFillColor(sf::Color::Black);
+					window.draw(hname);
+				}
+				window.display();
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+				{
+					debounce = deTime;
+					Game_State = 1;
+				}
+
+			}
+		}
+	}
 	//-----------------Loop Game Stage------------------//
 
 		//--Stage 1--//
@@ -212,9 +308,7 @@ int main()
 		stage1.play();
 
 		//***Player**//
-		sf::Texture CompmanTexture;
-		CompmanTexture.loadFromFile("Object/compmanA1.png");
-		compman Compman(&CompmanTexture, sf::Vector2u(8, 4), 0.2f, 350.0f, 150.0f);
+
 
 		//***BoxStage**//
 		sf::Texture box;
@@ -350,10 +444,8 @@ int main()
 		bool Nextarr = false; bool Nextarr1 = false; bool Nextarr2 = false; bool Nextarr3 = false;
 		bool N_item2 = false; bool N_item3 = false;
 		bool Door1 = false;
-		float deltaTime = 2000.0f;
 		sf::Clock clock;
 		float timeElasped = 0;
-		float GameTime = 0;
 		float PointTime = 100;
 
 		while (window.isOpen())
@@ -363,11 +455,11 @@ int main()
 			if (deltaTime > 1.0f / 20.0f)
 				deltaTime = 1.0f / 20.0f;
 			/*if (GameTime > 0)*/
-			GameTime += deltaTime;
 			/*if (GameTime <= 0)*/
-				/*PointTime -= deltaTime;*/
-			/*if (PointTime <= 0)
-				PointTime = 0;*/
+			GameTime += deltaTime;
+			/*PointTime -= deltaTime;*/
+		/*if (PointTime <= 0)
+			PointTime = 0;*/
 			sf::Event event;
 			if (window.pollEvent(event))
 			{
@@ -393,7 +485,6 @@ int main()
 					break;
 				}
 				//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
-				sf::Vector2f Posi = Compman.getPosition();
 
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -537,11 +628,11 @@ int main()
 				bt3.setPosition(eraseObj, eraseObj);
 				Nextarr2 = true;
 			}
-			if (Compman.getPosition().x==Darr1.getPosition().x)
+			if (Compman.getPosition().x == Darr1.getPosition().x)
 			{
 				Nextarr3 = true;
 			}
-			if (Compman.getGlobalbounds().intersects(D_Go.getGlobalBounds())+200.0f)
+			if (Compman.getGlobalbounds().intersects(D_Go.getGlobalBounds()) + 200.0f)
 			{
 				Door1 = true;
 			}
@@ -550,11 +641,12 @@ int main()
 				cout << "Go State 2";
 				Game_State = 2;
 				stage1.stop();
+				window.clear();
 				break;
 			}
 			if (Keyboard::isKeyPressed(Keyboard::End))
 			{
-				hell.setPosition(sf::Vector2f(Compman.getPosition().x + 50.0f, Compman.getPosition().y-30.0f));
+				hell.setPosition(sf::Vector2f(Compman.getPosition().x + 50.0f, Compman.getPosition().y - 30.0f));
 				Door1 = true;
 			}
 
@@ -603,8 +695,8 @@ int main()
 				Obj.Draw(window);
 			/*hitbox0.Draw(window);
 			hitbox1.Draw(window);*/
-			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 200, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
-			text2.drawtext((int)abs(PointTime), (string)"Point : ", (string)"", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 200, view.getCenter().y - (window.getSize().y / 2) + 55), window, sf::Color(255, 150, 0));
+			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 250, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
+			//text2.drawtext((int)abs(PointTime), (string)"Point : ", (string)"", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 200, view.getCenter().y - (window.getSize().y / 2) + 55), window, sf::Color(255, 150, 0));
 			window.display();
 		}
 
@@ -622,36 +714,56 @@ int main()
 		stage2.setLoop(true);
 		stage2.play();
 
+		sf::Texture Holl;
+		Holl.loadFromFile("Object/Holl.png");
+		sf::Sprite hell(Holl);
+		hell.setScale(1.2, 1.2);
+		hell.setPosition(5300.0f, 675.0f);
+		hell.setOrigin(hell.getScale().x / 2, hell.getScale().y / 2);
+
 		//***BoxStage**//
-		sf::Texture box21;
-		box21.loadFromFile("Object/box2.png");
-		std::vector<ObjColli>Objs21;
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 2, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 3, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 4, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 5, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 6, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 7, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 8, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 9, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 10, 1000.0f)));
-		Objs21.push_back(ObjColli(&box21, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 11, 1000.0f)));
+		sf::Texture box12;
+		box12.loadFromFile("Object/box23.png");
+		std::vector<ObjColli>Objs12;
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 2, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 3, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 4, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 5, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 6, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 7, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 8, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 9, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 10, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 11, 1000.0f)));
+
+		//----box--pick----//
+		sf::Texture box22;
+		box22.loadFromFile("Object/box3.png");
+		std::vector<ObjColli>Objs22;
+		for (size_t i = 0;i <= 30;i++)
+		{
+			Objs22.push_back(ObjColli(&box22, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(rand() % (4300 - 1200) + 1500, 400.0f)));
+		}
 
 		//---Limit Stage---//
 		sf::Texture box32;
-		box32.loadFromFile("Object/box3.png");
 		std::vector<ObjColli>Objs32;
-		for (size_t i = 0;i <= 30;i++)
-		{
-			Objs32.push_back(ObjColli(&box32, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(rand() % (4500 - 1500) + 1500, 400.0f)));
-		}
+		Objs32.push_back(ObjColli(&box32, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(-268.0f, 724.f)));
+		Objs32.push_back(ObjColli(&box32, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(5890.f, 724.f)));
 
-		float deltaTime = 1500.0f;
+		//----hitboxtest----//
+		hitboxtest hitbox0(0, 0, Vector2f(54, Objs22[0].GetSize().x), Objs22[0].GetPosition());
+		hitboxtest hitbox1(0, 0, Vector2f(50, Compman.GetSize().x), Compman.GetPosition());
+
+		TextFont text1;
+		TextFont text2;
+
+		bool Door1 = false;
+
 		sf::Clock clock;
 		float timeElasped = 0;
-		float GameTime = 10;
 		float PointTime = 100;
 
 		while (window.isOpen())
@@ -660,14 +772,14 @@ int main()
 			deltaTime = clock.restart().asSeconds();
 			if (deltaTime > 1.0f / 20.0f)
 				deltaTime = 1.0f / 20.0f;
-			if (GameTime > 0)
-				GameTime -= deltaTime;
-			if (GameTime <= 0)
-				PointTime -= deltaTime;
-			if (PointTime <= 0)
-				PointTime = 0;
+			/*if (GameTime > 0)*/
+			/*if (GameTime <= 0)*/
+			GameTime += deltaTime;
+			/*PointTime -= deltaTime;*/
+		/*if (PointTime <= 0)
+			PointTime = 0;*/
 			sf::Event event;
-			while (window.pollEvent(event))
+			if (window.pollEvent(event))
 			{
 				switch (event.type)
 				{
@@ -692,63 +804,150 @@ int main()
 				}
 				//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				{
-					window.close();
+					stage2.stop();
 				}
 			}
+			spacebartimer += 1;
+			Compman.Update(deltaTime);
 			sf::Vector2f direction;
+			//--Collider_Update--//
+			Collider c = Compman.GetCollider();
+			for (ObjColli& Obj : Objs12)
+			{
+				Collider O = Obj.GetCollider();
+				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
+				{
+					Compman.OnCollision(direction);
+				}
+				for (ObjColli& Obj22 : Objs22)
+				{
+					if (Obj22.GetCollider().CheckCollision(O, direction, 0.0f))
+					{
+						Obj22.Oncollision(direction);
+					}
+				}
+			}
+			//---Hold_Obj---//
+			for (int i = 0;i < Objs22.size();i++)
+			{
+				Objs22[i].Update(deltaTime, Compman.getPosition());
+				if (Objs22[i].GetCollider().CheckCollision(c, direction, 0.0f))
+				{
+					if (Objs22[i].getPickObj() == false)
+					{
+						Compman.OnCollision(direction);
+						//cout << "Collision" << endl;
+					}
+					if ((Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getHold() == false && Objs22[i].getPickObj() == false /*&& Compman.getPosition().y >= Objs2[i].getbody().getPosition().y - 20 && Compman.getPosition().y <= Objs2[i].getbody().getPosition().y + 20*/) {
+						spacebartimer = 0;
+						Objs22[i].setPickObj(true);
+						Compman.setHold(true);
+					}
+					if (Objs22[i].getPickObj() == true && (Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getcanJump() == false)
+					{
+						spacebartimer = 0;
+						Objs22[i].getbody().setPosition(Compman.getPosition().x, Compman.getPosition().y + 60);
+						Compman.setHold(false);
+						Objs22[i].setPickObj(false);
+					}
+				}
+				Collider o = Objs22[i].GetCollider();
+				for (int j = 0; j < Objs22.size();j++)
+				{
+					if (i != j)
+					{
+						if (Objs22[j].GetCollider().CheckCollision(o, direction, 1.0f))
+						{
+							Objs22[i].Oncollision(direction);
+						}
+					}
+				}
+			}
+			for (ObjColli& Obj : Objs32)
+			{
+				Collider b = Obj.GetCollider();
+				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
+				{
+					Compman.OnCollision(direction);
+				}
+				for (ObjColli& Obj2 : Objs32)
+				{
+					if (Obj2.GetCollider().CheckCollision(b, direction, 0.0f))
+					{
+						Obj2.Oncollision(direction);
+					}
+				}
+			}
+			//--hitboxtest_Update--//
+			hitbox1.Update(-21.5, -35.5, Compman.GetPosition());
+			hitbox0.Update(-27, -27, Objs22[0].GetPosition());
 
-			//--Collider Update--//
-			//Collider c = Compman.GetCollider();
-			//for (ObjColli& Obj : Objs1)
-			//	if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
-			//		Compman.OnCollision(direction);
-			//for (ObjColli& Obj : Objs3)
-			//	if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
-			//		Compman.OnCollision(direction);
-			////----------Set_View----------//
-			//view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
-			//if (view.getCenter().x - 195.0f <= 0.0f)
-			//{
-			//	if (view.getCenter().y - 450.0f <= 0.0f)
-			//	{
-			//		view.setCenter(195.f, Compman.GetPosition().y);
-			//	}
-			//	if (view.getCenter().y + 450.0f >= 900.0f)
-			//	{
-			//		view.setCenter(195.f, Compman.GetPosition().y);
-			//	}
-			//	if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
-			//	{
-			//		view.setCenter(195.f, Compman.GetPosition().y);
-			//	}
-			//}
-			//if (view.getCenter().x + 415.0f >= 5850.f)
-			//{
-			//	if (view.getCenter().y - 450.0f <= 0.0f)
-			//	{
-			//		view.setCenter(5435.f, Compman.GetPosition().y);
-			//	}
-			//	if (view.getCenter().y + 450.0f >= 900.0f)
-			//	{
-			//		view.setCenter(5435.f, Compman.GetPosition().y);
-			//	}
-			//	if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
-			//	{
-			//		view.setCenter(5435.f, Compman.GetPosition().y);
-			//	}
-			//}
+			//----------Set_View----------//
+			view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
+			if (view.getCenter().x - 195.0f <= 0.0f)
+			{
+				if (view.getCenter().y - 450.0f <= 0.0f)
+				{
+					view.setCenter(195.f, Compman.GetPosition().y);
+				}
+				if (view.getCenter().y + 450.0f >= 900.0f)
+				{
+					view.setCenter(195.f, Compman.GetPosition().y);
+				}
+				if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
+				{
+					view.setCenter(195.f, Compman.GetPosition().y);
+				}
+			}
+			if (view.getCenter().x + 415.0f >= 5850.f)
+			{
+				if (view.getCenter().y - 450.0f <= 0.0f)
+				{
+					view.setCenter(5435.f, Compman.GetPosition().y);
+				}
+				if (view.getCenter().y + 450.0f >= 900.0f)
+				{
+					view.setCenter(5435.f, Compman.GetPosition().y);
+				}
+				if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
+				{
+					view.setCenter(5435.f, Compman.GetPosition().y);
+				}
+			}
 			//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
+
+			if (Keyboard::isKeyPressed(Keyboard::End))
+			{
+				hell.setPosition(sf::Vector2f(Compman.getPosition().x + 50.0f, Compman.getPosition().y - 30.0f));
+				Door1 = true;
+			}
+
+			if (Compman.getGlobalbounds().intersects(hell.getGlobalBounds()))
+			{
+				cout << "Go State 3";
+				Game_State = 3;
+				stage2.stop();
+				window.clear();
+				break;
+			}
 
 			window.clear(sf::Color(255, 255, 255));
 			//--DrawEverythings--//
 			window.setView(view);
-			//Compman.Draw(window);
-			for (ObjColli& Obj : Objs21)
+			if (Door1 == true)
+			{
+				window.draw(hell);
+			}
+			Compman.Draw(window);
+			for (ObjColli& Obj : Objs12)
+				Obj.Draw(window);
+			for (ObjColli& Obj : Objs22)
 				Obj.Draw(window);
 			for (ObjColli& Obj : Objs32)
 				Obj.Draw(window);
+			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 250, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
 			window.display();
 		}
 	}
@@ -764,36 +963,57 @@ int main()
 		stage3.setLoop(true);
 		stage3.play();
 
-		//***BoxStage**//
-		sf::Texture box23;
-		box23.loadFromFile("Object/Christmas_box.png");
-		std::vector<ObjColli>Objs23;
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 2, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 3, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 4, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 5, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 6, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 7, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 8, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 9, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 10, 1000.0f)));
-		Objs23.push_back(ObjColli(&box23, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 11, 1000.0f)));
+		sf::Texture Holl;
+		Holl.loadFromFile("Object/Holl.png");
+		sf::Sprite hell(Holl);
+		hell.setScale(1.2, 1.2);
+		hell.setPosition(5300.0f, 675.0f);
+		hell.setOrigin(hell.getScale().x / 2, hell.getScale().y / 2);
 
-		//---Limit Stage---//
-		sf::Texture box33;
-		box33.loadFromFile("Object/Christbox_pick.png");
-		std::vector<ObjColli>Objs33;
+		//***BoxStage**//
+		sf::Texture box12;
+		box12.loadFromFile("Object/Christmas_box.png");
+		std::vector<ObjColli>Objs12;
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 2, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 3, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 4, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 5, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 6, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 7, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 8, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 9, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 10, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 11, 1000.0f)));
+
+		//----box--pick----//
+		sf::Texture box22;
+		box22.loadFromFile("Object/Christbox_pick.png");
+		std::vector<ObjColli>Objs22;
 		for (size_t i = 0;i <= 40;i++)
 		{
-			Objs33.push_back(ObjColli(&box33, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(rand() % (4500 - 1500) + 1500, 400.0f)));
+			Objs22.push_back(ObjColli(&box22, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(rand() % (5000 - 1000) + 1500, 400.0f)));
 		}
 
-		float deltaTime = 1500.0f;
+		//---Limit Stage---//
+		sf::Texture box32;
+		std::vector<ObjColli>Objs32;
+		Objs32.push_back(ObjColli(&box32, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(-268.0f, 724.f)));
+		Objs32.push_back(ObjColli(&box32, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(5890.f, 724.f)));
+
+		//----hitboxtest----//
+		hitboxtest hitbox0(0, 0, Vector2f(54, Objs22[0].GetSize().x), Objs22[0].GetPosition());
+		hitboxtest hitbox1(0, 0, Vector2f(50, Compman.GetSize().x), Compman.GetPosition());
+
+		TextFont text1;
+		TextFont text2;
+
+		bool Door1 = false;
+
 		sf::Clock clock;
 		float timeElasped = 0;
-		float GameTime = 10;
+
 		float PointTime = 100;
 
 		while (window.isOpen())
@@ -802,14 +1022,14 @@ int main()
 			deltaTime = clock.restart().asSeconds();
 			if (deltaTime > 1.0f / 20.0f)
 				deltaTime = 1.0f / 20.0f;
-			if (GameTime > 0)
-				GameTime -= deltaTime;
-			if (GameTime <= 0)
-				PointTime -= deltaTime;
-			if (PointTime <= 0)
-				PointTime = 0;
+			/*if (GameTime > 0)*/
+			/*if (GameTime <= 0)*/
+			GameTime += deltaTime;
+			/*PointTime -= deltaTime;*/
+		/*if (PointTime <= 0)
+			PointTime = 0;*/
 			sf::Event event;
-			while (window.pollEvent(event))
+			if (window.pollEvent(event))
 			{
 				switch (event.type)
 				{
@@ -834,65 +1054,235 @@ int main()
 				}
 				//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				{
-					window.close();
+					stage3.stop();
 				}
 			}
+			spacebartimer += 1;
+			Compman.Update(deltaTime);
 			sf::Vector2f direction;
+			//--Collider_Update--//
+			Collider c = Compman.GetCollider();
+			for (ObjColli& Obj : Objs12)
+			{
+				Collider O = Obj.GetCollider();
+				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
+				{
+					Compman.OnCollision(direction);
+				}
+				for (ObjColli& Obj22 : Objs22)
+				{
+					if (Obj22.GetCollider().CheckCollision(O, direction, 0.0f))
+					{
+						Obj22.Oncollision(direction);
+					}
+				}
+			}
+			//---Hold_Obj---//
+			for (int i = 0;i < Objs22.size();i++)
+			{
+				Objs22[i].Update(deltaTime, Compman.getPosition());
+				if (Objs22[i].GetCollider().CheckCollision(c, direction, 0.0f))
+				{
+					if (Objs22[i].getPickObj() == false)
+					{
+						Compman.OnCollision(direction);
+						//cout << "Collision" << endl;
+					}
+					if ((Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getHold() == false && Objs22[i].getPickObj() == false /*&& Compman.getPosition().y >= Objs2[i].getbody().getPosition().y - 20 && Compman.getPosition().y <= Objs2[i].getbody().getPosition().y + 20*/) {
+						spacebartimer = 0;
+						Objs22[i].setPickObj(true);
+						Compman.setHold(true);
+					}
+					if (Objs22[i].getPickObj() == true && (Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getcanJump() == false)
+					{
+						spacebartimer = 0;
+						Objs22[i].getbody().setPosition(Compman.getPosition().x, Compman.getPosition().y + 60);
+						Compman.setHold(false);
+						Objs22[i].setPickObj(false);
+					}
+				}
+				Collider o = Objs22[i].GetCollider();
+				for (int j = 0; j < Objs22.size();j++)
+				{
+					if (i != j)
+					{
+						if (Objs22[j].GetCollider().CheckCollision(o, direction, 1.0f))
+						{
+							Objs22[i].Oncollision(direction);
+						}
+					}
+				}
+			}
+			for (ObjColli& Obj : Objs32)
+			{
+				Collider b = Obj.GetCollider();
+				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
+				{
+					Compman.OnCollision(direction);
+				}
+				for (ObjColli& Obj2 : Objs32)
+				{
+					if (Obj2.GetCollider().CheckCollision(b, direction, 0.0f))
+					{
+						Obj2.Oncollision(direction);
+					}
+				}
+			}
+			//--hitboxtest_Update--//
+			hitbox1.Update(-21.5, -35.5, Compman.GetPosition());
+			hitbox0.Update(-27, -27, Objs22[0].GetPosition());
 
-			//--Collider Update--//
-			//Collider c = Compman.GetCollider();
-			//for (ObjColli& Obj : Objs1)
-			//	if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
-			//		Compman.OnCollision(direction);
-			//for (ObjColli& Obj : Objs3)
-			//	if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
-			//		Compman.OnCollision(direction);
-			////----------Set_View----------//
-			//view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
-			//if (view.getCenter().x - 195.0f <= 0.0f)
-			//{
-			//	if (view.getCenter().y - 450.0f <= 0.0f)
-			//	{
-			//		view.setCenter(195.f, Compman.GetPosition().y);
-			//	}
-			//	if (view.getCenter().y + 450.0f >= 900.0f)
-			//	{
-			//		view.setCenter(195.f, Compman.GetPosition().y);
-			//	}
-			//	if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
-			//	{
-			//		view.setCenter(195.f, Compman.GetPosition().y);
-			//	}
-			//}
-			//if (view.getCenter().x + 415.0f >= 5850.f)
-			//{
-			//	if (view.getCenter().y - 450.0f <= 0.0f)
-			//	{
-			//		view.setCenter(5435.f, Compman.GetPosition().y);
-			//	}
-			//	if (view.getCenter().y + 450.0f >= 900.0f)
-			//	{
-			//		view.setCenter(5435.f, Compman.GetPosition().y);
-			//	}
-			//	if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
-			//	{
-			//		view.setCenter(5435.f, Compman.GetPosition().y);
-			//	}
-			//}
+			//----------Set_View----------//
+			view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
+			if (view.getCenter().x - 195.0f <= 0.0f)
+			{
+				if (view.getCenter().y - 450.0f <= 0.0f)
+				{
+					view.setCenter(195.f, Compman.GetPosition().y);
+				}
+				if (view.getCenter().y + 450.0f >= 900.0f)
+				{
+					view.setCenter(195.f, Compman.GetPosition().y);
+				}
+				if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
+				{
+					view.setCenter(195.f, Compman.GetPosition().y);
+				}
+			}
+			if (view.getCenter().x + 415.0f >= 5850.f)
+			{
+				if (view.getCenter().y - 450.0f <= 0.0f)
+				{
+					view.setCenter(5435.f, Compman.GetPosition().y);
+				}
+				if (view.getCenter().y + 450.0f >= 900.0f)
+				{
+					view.setCenter(5435.f, Compman.GetPosition().y);
+				}
+				if (view.getCenter().y - 450.0f > 0.0f && view.getCenter().y + 450.0f < 900.0f)
+				{
+					view.setCenter(5435.f, Compman.GetPosition().y);
+				}
+			}
 			//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
+
+			if (Keyboard::isKeyPressed(Keyboard::End))
+			{
+				hell.setPosition(sf::Vector2f(Compman.getPosition().x + 50.0f, Compman.getPosition().y - 30.0f));
+				Door1 = true;
+			}
+
+			if (Compman.getGlobalbounds().intersects(hell.getGlobalBounds()))
+			{
+				Game_State = 5;
+				stage3.stop();
+				window.clear();
+				break;
+			}
 
 			window.clear(sf::Color(255, 255, 255));
 			//--DrawEverythings--//
 			window.setView(view);
-			//Compman.Draw(window);
-			for (ObjColli& Obj : Objs23)
+			if (Door1 == true)
+			{
+				window.draw(hell);
+			}
+			Compman.Draw(window);
+			for (ObjColli& Obj : Objs12)
 				Obj.Draw(window);
-			for (ObjColli& Obj : Objs33)
+			for (ObjColli& Obj : Objs22)
 				Obj.Draw(window);
+			for (ObjColli& Obj : Objs32)
+				Obj.Draw(window);
+			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 250, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
 			window.display();
 		}
+	}
+
+	if (Game_State == 5)
+	{
+		cout << "Stage 5";
+		sf::Clock deCLK = sf::Clock();
+		double debounce;
+
+		string name1;
+		String name;
+		Text yourname;
+
+		Texture Mapname;
+		Mapname.loadFromFile("Object/StageName.png");
+		Sprite name_key;
+		name_key.setTexture(Mapname);
+
+		int Name_State = 0;
+		double deTime = 0;
+		bool enterinto = false;
+		while (window.isOpen())
+		{
+			deTime += deCLK.getElapsedTime().asSeconds();
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				switch (event.type)
+				{
+				case sf::Event::Closed:
+					window.close();
+					break;
+				case sf::Event::MouseButtonPressed:
+					cout << "Mouse button has been pressed" << endl;
+					switch (event.key.code)
+					{
+					case sf::Mouse::Left:
+						cout << "LEFT KEY has been pressed" << endl;
+						break;
+					}
+					break;
+				case sf::Event::MouseButtonReleased:
+					cout << "Mouse button has been released" << endl;
+					break;
+				}
+				if (event.type == sf::Event::TextEntered)
+				{
+					enterinto = true;
+					cout << "intoEnter";
+					if (event.text.unicode == '\b' && (name.getSize() > 0))
+					{
+						name1.erase(name.getSize() - 1, 1);
+						name.erase(name.getSize() - 1, 1);
+					}
+					else
+					{
+						if ((event.text.unicode < 128) && (name.getSize() < 8) && (event.text.unicode != '\b'))
+						{
+							name += static_cast<char>(event.text.unicode);
+							name1 += static_cast<char>(event.text.unicode);
+						}
+					}
+					yourname.setFont(font);
+					yourname.setString(name);
+					yourname.setFillColor(sf::Color::White);
+					yourname.setCharacterSize(20);
+					yourname.setPosition(window.getSize().x/2, window.getSize().y/2);
+				}
+				if (Keyboard::isKeyPressed(Keyboard::Enter))
+				{
+					window.close();
+				}
+			}
+			window.clear();
+			window.draw(name_key);
+			window.draw(yourname);
+			window.display();
+		}
+
+		//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
+		cout << "Go State Score";
+		ofstream highscore;
+		highscore.open("HS.txt", ios::out | ios::app);
+		highscore << "\n" << name1 << " " << GameTime;
+		highscore.close();
 	}
 
 	while (P_State == 1)
@@ -958,3 +1348,4 @@ int main()
 
 	return 0;
 }
+

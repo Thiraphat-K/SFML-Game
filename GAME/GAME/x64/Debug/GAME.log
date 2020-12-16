@@ -9,32 +9,46 @@ C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(26,28): warning 
           [
               T=unsigned int
           ]
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(134,127): warning C4305: 'argument': truncation from 'int' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(242,100): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(141,127): warning C4305: 'argument': truncation from 'int' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(278,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(284,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(336,100): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(257,23): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(265,24): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(273,24): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(281,25): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(287,25): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(293,25): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(303,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(312,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(321,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(330,25): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(337,25): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(607,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(648,102): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(351,23): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(359,24): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(367,24): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(375,25): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(381,25): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(387,25): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(397,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(406,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(415,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(424,25): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(431,25): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(720,25): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(747,102): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(790,102): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(969,25): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(996,102): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(1267,67): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(1267,45): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(1208,10): warning C4101: 'debounce': unreferenced local variable
   GAME.vcxproj -> C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\x64\Debug\GAME.exe
