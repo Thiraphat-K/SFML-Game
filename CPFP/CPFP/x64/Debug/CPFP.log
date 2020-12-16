@@ -1,20 +1,5 @@
 ﻿  Game.cpp
-C:\Users\Thiraphat Ketsingnoi\source\repos\CPFP\CPFP\Game.cpp(12,25): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\Thiraphat Ketsingnoi\source\repos\CPFP\CPFP\Game.cpp(11,65): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
+  GameState.cpp
+  main.cpp
+  Generating Code...
   CPFP.vcxproj -> C:\Users\Thiraphat Ketsingnoi\source\repos\CPFP\x64\Debug\CPFP.exe
