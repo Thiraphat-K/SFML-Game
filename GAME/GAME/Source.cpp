@@ -9,6 +9,10 @@
 
 static const float VIEW_HEIGHT = 900.0f;
 static const float boxes = 512.0f;
+static const float boxes2 = 513.0f;
+static const float boxes2_2 = 229.5f;
+static const float boxes3 = 463.0f;
+static const float boxes3_3 = 320.0f;
 using namespace std;
 float max_spacebartimer = 450;
 float spacebartimer = 0;
@@ -385,7 +389,7 @@ int main()
 		Sprite arr3;
 		arr3.setTexture(arr);
 		arr3.setScale(0.9, 0.9);
-		arr3.setPosition(4000.f, 640.0f);
+		arr3.setPosition(4200.f, 640.0f);
 		arr3.setOrigin(arr3.getScale().x / 2, arr3.getScale().y / 2);
 
 
@@ -413,7 +417,7 @@ int main()
 		Sprite Darr1;
 		Darr1.setTexture(Darr_1);
 		Darr1.setScale(1.2, 1.2);
-		Darr1.setPosition(4200.f, 150.0f);
+		Darr1.setPosition(4300.f, 150.0f);
 		Darr1.setRotation(45);
 		Darr1.setOrigin(Darr1.getScale().x / 2, Darr1.getScale().y / 2);
 
@@ -632,7 +636,7 @@ int main()
 			{
 				Nextarr3 = true;
 			}
-			if (Compman.getGlobalbounds().intersects(D_Go.getGlobalBounds()) + 200.0f)
+			if (Compman.getGlobalbounds().intersects(D_Go.getGlobalBounds()) + 200.0f && Compman.getGlobalbounds().intersects(bt3.getGlobalBounds()))
 			{
 				Door1 = true;
 			}
@@ -725,18 +729,18 @@ int main()
 		sf::Texture box12;
 		box12.loadFromFile("Object/box23.png");
 		std::vector<ObjColli>Objs12;
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 2, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 3, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 4, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 5, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 6, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 7, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 8, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 9, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 10, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 11, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 2, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 3, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 4, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 5, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 6, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 7, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 8, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 9, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 10, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 11, 718.0f)));
 
 		//----box--pick----//
 		sf::Texture box22;
@@ -924,6 +928,8 @@ int main()
 				Door1 = true;
 			}
 
+
+
 			if (Compman.getGlobalbounds().intersects(hell.getGlobalBounds()))
 			{
 				cout << "Go State 3";
@@ -974,18 +980,20 @@ int main()
 		sf::Texture box12;
 		box12.loadFromFile("Object/Christmas_box.png");
 		std::vector<ObjColli>Objs12;
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 2, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 3, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 4, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 5, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 6, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 7, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 8, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 9, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 10, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes, boxes), sf::Vector2f(0.0f + boxes * 11, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 2, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 3, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 4, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 5, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 6, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 7, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 8, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 9, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 10, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 11, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 12, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 13, 1000.0f)));
 
 		//----box--pick----//
 		sf::Texture box22;
