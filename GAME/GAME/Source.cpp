@@ -206,6 +206,7 @@ int main()
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::N) && deTime - debounce >= 100.f)
 					{
+						menums.stop();
 						Game_State = 1;
 					}
 
@@ -297,6 +298,7 @@ int main()
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::N))
 				{
 					debounce = deTime;
+					menums.stop();
 					Game_State = 1;
 				}
 
@@ -405,7 +407,7 @@ int main()
 		Narr_is.setPosition(eraseObj, eraseObj);
 		//Narr_i1.setRotation(135);
 		Narr_is.setOrigin(Narr_is.getScale().x / 2, Narr_is.getScale().y / 2);
-		Narr_is.setPosition(Compman.getPosition().x + 100.f, arr_point);
+		Narr_is.setPosition(Compman.getPosition().x + 200.f, arr_point);
 
 		Texture Narr;
 		Narr.loadFromFile("Object/NArrRed.png");
@@ -796,14 +798,14 @@ int main()
 
 		//----Arrow guide Item----//
 		Texture Narr_s;
-		Narr_s.loadFromFile("Object/NArrS.png");
+		Narr_s.loadFromFile("Object/NArrS2.png");
 		Sprite Narr_is;
 		Narr_is.setTexture(Narr_s);
 		Narr_is.setScale(1.2, 1.2);
 		Narr_is.setPosition(eraseObj, eraseObj);
 		//Narr_i1.setRotation(135);
 		Narr_is.setOrigin(Narr_is.getScale().x / 2, Narr_is.getScale().y / 2);
-		Narr_is.setPosition(Compman.getPosition().x + 100.f, arr_point2);
+		Narr_is.setPosition(ArrR_i1.getPosition().x + 200.f, arr_point2);
 		
 		Texture Narr;
 		Narr.loadFromFile("Object/NArrRed.png");
@@ -1051,12 +1053,12 @@ int main()
 			{
 				if ((Objs22[i].getGlobalbounds().intersects(ArrR_i1.getGlobalBounds()) or Compman.getGlobalbounds().intersects(ArrR_i1.getGlobalBounds())) and item_s21 == true)
 				{
-					Narr_is.setPosition(eraseObj, eraseObj);
 					WFs.setPosition(ArrR_i1.getPosition().x, rand() % (50 - 10) + 10);
 					item_s21 = false;
 				}
 				if (Compman.getGlobalbounds().intersects(WFs.getGlobalBounds()))
 				{
+					Narr_is.setPosition(eraseObj, eraseObj);
 					ArrR_i1.setPosition(eraseObj, eraseObj);
 					WFs.setPosition(eraseObj, eraseObj);
 					Narr_i1.setPosition(Compman.getPosition().x - 200.0f, 100.0f);
@@ -1174,51 +1176,95 @@ int main()
 		Holl.loadFromFile("Object/Holl.png");
 		sf::Sprite hell(Holl);
 		hell.setScale(1.2, 1.2);
-		hell.setPosition(5300.0f, 675.0f);
+		hell.setPosition(eraseObj, eraseObj);
 		hell.setOrigin(hell.getScale().x / 2, hell.getScale().y / 2);
 
+		Texture Gt;
+		Gt.loadFromFile("Object/Item_stage3/1.png");
+		Sprite Gs;
+		Gs.setTexture(Gt);
+		Gs.setScale(0.7, 0.7);
+		Gs.setPosition(eraseObj, eraseObj);
+		Gs.setOrigin(Gs.getScale().x / 2, Gs.getScale().y / 2);
+
+		Texture ArrR;
+		ArrR.loadFromFile("Object/ArrRed.png");
+		Sprite ArrR_i1;
+		ArrR_i1.setTexture(ArrR);
+		ArrR_i1.setScale(0.9, 0.9);
+		ArrR_i1.setPosition(2400.0f, arr_point2);
+		ArrR_i1.setOrigin(ArrR_i1.getScale().x / 2, ArrR_i1.getScale().y / 2);
+
+		Texture Narr_s;
+		Narr_s.loadFromFile("Object/NArrS.png");
+		Sprite Narr_is;
+		Narr_is.setTexture(Narr_s);
+		Narr_is.setScale(1.2, 1.2);
+		Narr_is.setPosition(eraseObj, eraseObj);
+		//Narr_i1.setRotation(135);
+		Narr_is.setOrigin(Narr_is.getScale().x / 2, Narr_is.getScale().y / 2);
+		Narr_is.setPosition(Compman.getPosition().x - 200.f, arr_point2);
+
+		Texture Darr_1;
+		Darr_1.loadFromFile("Object/DoorArr.png");
+		Sprite Darr1;
+		Darr1.setTexture(Darr_1);
+		Darr1.setScale(1.2, 1.2);
+		Darr1.setPosition(eraseObj, eraseObj);
+		//Darr1.setRotation(45);
+		Darr1.setOrigin(Darr1.getScale().x / 2, Darr1.getScale().y / 2);
+
+		Texture DGo;
+		DGo.loadFromFile("Object/DoorArrGo.png");
+		Sprite D_Go;
+		D_Go.setTexture(DGo);
+		D_Go.setScale(1.2, 1.2);
+		D_Go.setPosition(eraseObj, eraseObj);
+		D_Go.setOrigin(D_Go.getScale().x / 2, D_Go.getScale().y / 2);
+
+		bool item_s31 = true;
+
 		//***BoxStage**//
-		sf::Texture box12;
-		box12.loadFromFile("Object/Christmas_box.png");
+		sf::Texture box31;
+		box31.loadFromFile("Object/Christmas_box.png");
 		std::vector<ObjColli>Objs12;
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 2, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 3, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 4, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 5, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 6, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 7, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 8, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 9, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 10, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 11, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 12, 1000-192.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 13, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 2, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 3, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 4, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 5, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 6, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 7, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 8, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 9, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 10, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 11, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 12, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box31, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 13, 1000-192.0f)));
 
 		//----box--pick----//
-		sf::Texture box22;
-		box22.loadFromFile("Object/Christbox_pick.png");
-		std::vector<ObjColli>Objs22;
+		sf::Texture box32;
+		box32.loadFromFile("Object/Christbox_pick.png");
+		std::vector<ObjColli>Objs32;
 		for (size_t i = 0;i <= 40;i++)
 		{
-			Objs22.push_back(ObjColli(&box22, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(rand() % (5000 - 1000) + 1500, 400.0f)));
+			Objs32.push_back(ObjColli(&box32, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(rand() % (5000 - 1000) + 1000, 400.0f)));
 		}
 
 		//---Limit Stage---//
-		sf::Texture box32;
-		std::vector<ObjColli>Objs32;
-		Objs32.push_back(ObjColli(&box32, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(-268.0f, 724.f)));
-		Objs32.push_back(ObjColli(&box32, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(5890.f, 724.f)));
+		sf::Texture box33;
+		std::vector<ObjColli>Objs33;
+		Objs33.push_back(ObjColli(&box33, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(-268.0f, 724.f)));
+		Objs33.push_back(ObjColli(&box33, sf::Vector2f(2.0f, 5000.0f), sf::Vector2f(5890.f, 724.f)));
 
 		//----hitboxtest----//
-		hitboxtest hitbox0(0, 0, Vector2f(54, Objs22[0].GetSize().x), Objs22[0].GetPosition());
+		hitboxtest hitbox0(0, 0, Vector2f(54, Objs32[0].GetSize().x), Objs32[0].GetPosition());
 		hitboxtest hitbox1(0, 0, Vector2f(50, Compman.GetSize().x), Compman.GetPosition());
 
 		TextFont text1;
 		TextFont text2;
 
-		bool Door1 = false;
 
 		sf::Clock clock;
 		float timeElasped = 0;
@@ -1280,58 +1326,58 @@ int main()
 				{
 					Compman.OnCollision(direction);
 				}
-				for (ObjColli& Obj22 : Objs22)
+				for (ObjColli& Obj32 : Objs32)
 				{
-					if (Obj22.GetCollider().CheckCollision(O, direction, 0.0f))
+					if (Obj32.GetCollider().CheckCollision(O, direction, 0.0f))
 					{
-						Obj22.Oncollision(direction);
+						Obj32.Oncollision(direction);
 					}
 				}
 			}
 			//---Hold_Obj---//
-			for (int i = 0;i < Objs22.size();i++)
+			for (int i = 0;i < Objs32.size();i++)
 			{
-				Objs22[i].Update(deltaTime, Compman.getPosition());
-				if (Objs22[i].GetCollider().CheckCollision(c, direction, 0.0f))
+				Objs32[i].Update(deltaTime, Compman.getPosition());
+				if (Objs32[i].GetCollider().CheckCollision(c, direction, 0.0f))
 				{
-					if (Objs22[i].getPickObj() == false)
+					if (Objs32[i].getPickObj() == false)
 					{
 						Compman.OnCollision(direction);
 						//cout << "Collision" << endl;
 					}
-					if ((Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getHold() == false && Objs22[i].getPickObj() == false /*&& Compman.getPosition().y >= Objs2[i].getbody().getPosition().y - 20 && Compman.getPosition().y <= Objs2[i].getbody().getPosition().y + 20*/) {
+					if ((Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getHold() == false && Objs32[i].getPickObj() == false /*&& Compman.getPosition().y >= Objs2[i].getbody().getPosition().y - 20 && Compman.getPosition().y <= Objs2[i].getbody().getPosition().y + 20*/) {
 						spacebartimer = 0;
-						Objs22[i].setPickObj(true);
+						Objs32[i].setPickObj(true);
 						Compman.setHold(true);
 					}
-					if (Objs22[i].getPickObj() == true && (Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getcanJump() == false)
+					if (Objs32[i].getPickObj() == true && (Keyboard::isKeyPressed(Keyboard::Space)) && spacebartimer >= max_spacebartimer && Compman.getcanJump() == false)
 					{
 						spacebartimer = 0;
-						Objs22[i].getbody().setPosition(Compman.getPosition().x, Compman.getPosition().y + 60);
+						Objs32[i].getbody().setPosition(Compman.getPosition().x, Compman.getPosition().y + 60);
 						Compman.setHold(false);
-						Objs22[i].setPickObj(false);
+						Objs32[i].setPickObj(false);
 					}
 				}
-				Collider o = Objs22[i].GetCollider();
-				for (int j = 0; j < Objs22.size();j++)
+				Collider o = Objs32[i].GetCollider();
+				for (int j = 0; j < Objs32.size();j++)
 				{
 					if (i != j)
 					{
-						if (Objs22[j].GetCollider().CheckCollision(o, direction, 1.0f))
+						if (Objs32[j].GetCollider().CheckCollision(o, direction, 1.0f))
 						{
-							Objs22[i].Oncollision(direction);
+							Objs32[i].Oncollision(direction);
 						}
 					}
 				}
 			}
-			for (ObjColli& Obj : Objs32)
+			for (ObjColli& Obj : Objs33)
 			{
 				Collider b = Obj.GetCollider();
 				if (Obj.GetCollider().CheckCollision(c, direction, 1.0f))
 				{
 					Compman.OnCollision(direction);
 				}
-				for (ObjColli& Obj2 : Objs32)
+				for (ObjColli& Obj2 : Objs33)
 				{
 					if (Obj2.GetCollider().CheckCollision(b, direction, 0.0f))
 					{
@@ -1341,7 +1387,7 @@ int main()
 			}
 			//--hitboxtest_Update--//
 			hitbox1.Update(-21.5, -35.5, Compman.GetPosition());
-			hitbox0.Update(-27, -27, Objs22[0].GetPosition());
+			hitbox0.Update(-27, -27, Objs32[0].GetPosition());
 
 			//----------Set_View----------//
 			view.setCenter(Compman.GetPosition().x, Compman.GetPosition().y);
@@ -1377,10 +1423,35 @@ int main()
 			}
 			//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
 
+			for (size_t i = 0;i < Objs32.size(); i++)
+			{
+				if ((Objs32[i].getGlobalbounds().intersects(ArrR_i1.getGlobalBounds()) or Compman.getGlobalbounds().intersects(ArrR_i1.getGlobalBounds())) and item_s31 == true)
+				{
+					Gs.setPosition(ArrR_i1.getPosition().x, -100.0f);
+					item_s31 = false;
+				}
+				if (Compman.getGlobalbounds().intersects(Gs.getGlobalBounds()))
+				{
+					Narr_is.setPosition(eraseObj, eraseObj);
+					ArrR_i1.setPosition(eraseObj, eraseObj);
+					Gs.setPosition(eraseObj, eraseObj);
+					Darr1.setPosition(Compman.getPosition().x + 200.0f, Compman.getPosition().y);
+					cout << Darr1.getPosition().x << "\t" << Darr1.getPosition().y << endl;
+					Darr1.setRotation(45);
+					D_Go.setPosition(Darr1.getPosition().x + 600.0f, arr_point2 + 50.0f);
+				}
+				
+				if (Compman.getGlobalbounds().intersects(D_Go.getGlobalBounds()))
+				{
+					Darr1.setPosition(eraseObj, eraseObj);
+					hell.setPosition(D_Go.getPosition().x + 300.0f, arr_point2 + 30.0f);
+				}
+
+			}
+
 			if (Keyboard::isKeyPressed(Keyboard::End))
 			{
 				hell.setPosition(sf::Vector2f(Compman.getPosition().x + 50.0f, Compman.getPosition().y - 30.0f));
-				Door1 = true;
 			}
 
 			if (Compman.getGlobalbounds().intersects(hell.getGlobalBounds()))
@@ -1394,16 +1465,18 @@ int main()
 			window.clear(sf::Color(255, 255, 255));
 			//--DrawEverythings--//
 			window.setView(view);
-			if (Door1 == true)
-			{
-				window.draw(hell);
-			}
+			window.draw(hell);
+			window.draw(Gs);
+			window.draw(Narr_is);
+			window.draw(ArrR_i1);
+			window.draw(Darr1);
+			window.draw(D_Go);
 			Compman.Draw(window);
 			for (ObjColli& Obj : Objs12)
 				Obj.Draw(window);
-			for (ObjColli& Obj : Objs22)
-				Obj.Draw(window);
 			for (ObjColli& Obj : Objs32)
+				Obj.Draw(window);
+			for (ObjColli& Obj : Objs33)
 				Obj.Draw(window);
 			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 250, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
 			window.display();
