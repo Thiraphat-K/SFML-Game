@@ -14,6 +14,7 @@ static const float boxes2_2 = 229.5f;
 static const float boxes3 = 463.0f;
 static const float boxes3_3 = 320.0f;
 static const float arr_point = 640.0f;
+static const float arr_point2 = 640.0f - 100.0f;
 using namespace std;
 float max_spacebartimer = 450;
 float spacebartimer = 0;
@@ -28,8 +29,9 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1000, 900), "Box Way", sf::Style::Close /*| sf::Style::Resize*/);
-	Menu menu(window.getSize().x, window.getSize().y);
-
+	
+	bool Game_run = true;
+	
 	//--Obj Everythings--//
 
 	Texture MNp;
@@ -79,74 +81,78 @@ int main()
 	float deltaTime = 1500.0f;
 	float GameTime = 0;
 
-	while (window.isOpen())
+	if (Game_run == true)
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
+		Menu menu(window.getSize().x, window.getSize().y);
+		while (window.isOpen())
 		{
-			switch (event.type)
+			sf::Event event;
+			while (window.pollEvent(event))
 			{
-			case sf::Event::KeyReleased:
-				switch (event.key.code)
+				switch (event.type)
 				{
-				case sf::Keyboard::Up:
-					if (menu.selectedItem >= 0)
+				case sf::Event::KeyReleased:
+					switch (event.key.code)
 					{
-						menu.Moveup();
-						break;
+					case sf::Keyboard::Up:
+						if (menu.selectedItem >= 0)
+						{
+							menu.Moveup();
+							break;
 
-					}
-				case sf::Keyboard::Down:
-					if (menu.selectedItem < Max_Items)
-					{
-						menu.Movedown();
-						break;
-					}
+						}
+					case sf::Keyboard::Down:
+						if (menu.selectedItem < Max_Items)
+						{
+							menu.Movedown();
+							break;
+						}
 
 
-				case sf::Keyboard::Return:
-					switch (menu.GetPressedItem())
-					{
-					case 0:
-						cout << "Start has been pressed" << endl;
-						//go to state
-						menums.stop();
-						Game_State = 1;
-						checkGameOpen = true;
-						break;
-					case 1:
-						cout << "Guide has been pressed" << endl;
-						//go to state
-						//menums.stop();
-						Game_State = 4;
-						checkGameOpen = true;
-						break;
-					case 2:
-						cout << "HighScore has been pressed" << endl;
-						//go to state
-						Game_State = 6;
-						checkGameOpen = true;
-						break;
-					case 3:
-						window.close();
-						menums.stop();
+					case sf::Keyboard::Return:
+						switch (menu.GetPressedItem())
+						{
+						case 0:
+							cout << "Start has been pressed" << endl;
+							//go to state
+							menums.stop();
+							Game_State = 1;
+							checkGameOpen = true;
+							break;
+						case 1:
+							cout << "Guide has been pressed" << endl;
+							//go to state
+							//menums.stop();
+							Game_State = 4;
+							checkGameOpen = true;
+							break;
+						case 2:
+							cout << "HighScore has been pressed" << endl;
+							//go to state
+							Game_State = 6;
+							checkGameOpen = true;
+							break;
+						case 3:
+							window.close();
+							menums.stop();
+							break;
+						}
 						break;
 					}
 					break;
+				case sf::Event::Closed:
+					window.close();
+					break;
 				}
-				break;
-			case sf::Event::Closed:
-				window.close();
-				break;
 			}
+			window.clear();
+			window.draw(BGmn);
+			menu.draw(window);
+			SDid.drawtext(63010467, (string)"", (string)"  THIRAPHAT KETSINGNOI", sf::Vector2f(610, 865), window, sf::Color(0, 120, 255));
+			window.display();
+			if (checkGameOpen == true)
+				break;
 		}
-		window.clear();
-		window.draw(BGmn);
-		menu.draw(window);
-		SDid.drawtext(63010467, (string)"", (string)"  THIRAPHAT KETSINGNOI", sf::Vector2f(610, 865), window, sf::Color(0, 120, 255));
-		window.display();
-		if (checkGameOpen == true)
-			break;
 	}
 
 	if (Game_State == 4) //guide
@@ -220,7 +226,6 @@ int main()
 		Sprite HS;
 		HS.setTexture(hScore);
 
-		int HS_State = 0;
 		double deTime = 0;
 		bool scorenaja = false;
 
@@ -265,8 +270,6 @@ int main()
 					break;
 				}
 			}
-			if (HS_State == 0)
-			{
 				window.clear();
 				window.draw(HS);
 				for (vector<pair<int, string>>::iterator k = scoreboard.begin(); k != scoreboard.end(); ++k)
@@ -274,20 +277,20 @@ int main()
 					++cnt;
 					if (cnt > 5)
 						break;
-
 					sf::Text hname, hscore;
 					hscore.setString(to_string(k->first));
-					cout << k->second;
 					hscore.setFont(font);
 					hscore.setCharacterSize(20);
-					hscore.setPosition(100, 100 + (80 * cnt));
-					hscore.setFillColor(sf::Color::Black);
+					hscore.setOrigin(HS.getLocalBounds().width / 2, HS.getLocalBounds().height / 2);
+					hscore.setPosition(window.getSize().x / 2, window.getSize().y + (80 * cnt));
+					hscore.setFillColor(sf::Color::Blue);
 					window.draw(hscore);
 					hname.setString(k->second);
 					hname.setFont(font);
 					hname.setCharacterSize(20);
-					hname.setPosition(100, 100 + (80 * cnt));
-					hname.setFillColor(sf::Color::Black);
+					hname.setOrigin(HS.getLocalBounds().width / 2, HS.getLocalBounds().height / 2);
+					hname.setPosition(window.getSize().x / 2, window.getSize().y + (80 * cnt));
+					hname.setFillColor(sf::Color::Blue);
 					window.draw(hname);
 				}
 				window.display();
@@ -299,7 +302,6 @@ int main()
 
 			}
 		}
-	}
 	//-----------------Loop Game Stage------------------//
 
 		//--Stage 1--//
@@ -395,6 +397,16 @@ int main()
 
 
 		//---Next-Arrow---//
+		Texture Narr_s;
+		Narr_s.loadFromFile("Object/NArrS2.png");
+		Sprite Narr_is;
+		Narr_is.setTexture(Narr_s);
+		Narr_is.setScale(1.2, 1.2);
+		Narr_is.setPosition(eraseObj, eraseObj);
+		//Narr_i1.setRotation(135);
+		Narr_is.setOrigin(Narr_is.getScale().x / 2, Narr_is.getScale().y / 2);
+		Narr_is.setPosition(Compman.getPosition().x + 100.f, arr_point);
+
 		Texture Narr;
 		Narr.loadFromFile("Object/NArrRed.png");
 		Sprite Narr1;
@@ -611,6 +623,7 @@ int main()
 			{
 				if ((Objs2[i].getGlobalbounds().intersects(arr1.getGlobalBounds()) or Compman.getGlobalbounds().intersects(arr1.getGlobalBounds())) and item_s11 == true)
 				{
+					Narr_is.setPosition(eraseObj, eraseObj);
 					bt.setPosition(arr1.getPosition().x, rand() % (150 - 40) + 40);
 					item_s11 = false;
 				}
@@ -660,7 +673,7 @@ int main()
 
 			if (Compman.getGlobalbounds().intersects(hell.getGlobalBounds()))
 			{
-				cout << "Go State 2";
+				cout << "Go State 2" << endl;
 				Game_State = 2;
 				stage1.stop();
 				window.clear();
@@ -684,7 +697,7 @@ int main()
 			window.draw(Darr1);
 			window.draw(D_Go);
 			window.draw(hell);
-
+			window.draw(Narr_is);
 			Compman.Draw(window);
 			for (ObjColli& Obj : Objs1)
 				Obj.Draw(window);
@@ -745,7 +758,7 @@ int main()
 		LKs.setOrigin(LKs.getScale().x / 2, LKs.getScale().y / 2);
 
 		Texture LCt;
-		LCt.loadFromFile("Object/Item_stage2/3.png");
+		LCt.loadFromFile("Object/Item_stage2/4.png");
 		Sprite LCs;
 		LCs.setTexture(LCt);
 		LCs.setScale(1.2, 1.2);
@@ -759,7 +772,7 @@ int main()
 		Sprite ArrR_i1;
 		ArrR_i1.setTexture(ArrR);
 		ArrR_i1.setScale(0.9, 0.9);
-		ArrR_i1.setPosition(eraseObj, eraseObj);
+		ArrR_i1.setPosition(3900.0f, arr_point2);
 		ArrR_i1.setOrigin(ArrR_i1.getScale().x / 2, ArrR_i1.getScale().y / 2);
 
 		Sprite ArrR_i2;
@@ -782,29 +795,39 @@ int main()
 		//------------------------------------------------------------------------
 
 		//----Arrow guide Item----//
+		Texture Narr_s;
+		Narr_s.loadFromFile("Object/NArrS.png");
+		Sprite Narr_is;
+		Narr_is.setTexture(Narr_s);
+		Narr_is.setScale(1.2, 1.2);
+		Narr_is.setPosition(eraseObj, eraseObj);
+		//Narr_i1.setRotation(135);
+		Narr_is.setOrigin(Narr_is.getScale().x / 2, Narr_is.getScale().y / 2);
+		Narr_is.setPosition(Compman.getPosition().x + 100.f, arr_point2);
+		
 		Texture Narr;
 		Narr.loadFromFile("Object/NArrRed.png");
 		Sprite Narr_i1;
 		Narr_i1.setTexture(Narr);
 		Narr_i1.setScale(1.2, 1.2);
 		Narr_i1.setPosition(eraseObj, eraseObj);
-		Narr_i1.setRotation(135);
+		//Narr_i1.setRotation(135);
 		Narr_i1.setOrigin(Narr_i1.getScale().x / 2, Narr_i1.getScale().y / 2);
 
 		Texture Narr2;
 		Narr2.loadFromFile("Object/NArrRed2.png");
 		Sprite Narr_i2;
-		Narr_i2.setTexture(Narr2);
+		Narr_i2.setTexture(Narr);
 		Narr_i2.setScale(1.2, 1.2);
 		Narr_i2.setPosition(eraseObj, eraseObj);
-		Narr_i2.setRotation(45);
+		//Narr_i2.setRotation(45);
 		Narr_i2.setOrigin(Narr_i2.getScale().x / 2, Narr_i2.getScale().y / 2);
 
 		Sprite Narr_i3;
-		Narr_i3.setTexture(Narr);
+		Narr_i3.setTexture(Narr2);
 		Narr_i3.setScale(1.2, 1.2);
 		Narr_i3.setPosition(eraseObj, eraseObj);
-		Narr_i3.setRotation(135);
+		//Narr_i3.setRotation(135);
 		Narr_i3.setOrigin(Narr_i3.getScale().x / 2, Narr_i3.getScale().y / 2);
 
 		Texture Darr_1;
@@ -813,7 +836,7 @@ int main()
 		Darr1.setTexture(Darr_1);
 		Darr1.setScale(1.2, 1.2);
 		Darr1.setPosition(eraseObj, eraseObj);
-		Darr1.setRotation(45);
+		//Darr1.setRotation(45);
 		Darr1.setOrigin(Darr1.getScale().x / 2, Darr1.getScale().y / 2);
 
 		Texture DGo;
@@ -828,18 +851,18 @@ int main()
 		sf::Texture box12;
 		box12.loadFromFile("Object/box23.png");
 		std::vector<ObjColli>Objs12;
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 2, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 3, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 4, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 5, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 6, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 7, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 8, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 9, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 10, 718.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 11, 718.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 2, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 3, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 4, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 5, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 6, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 7, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 8, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 9, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 10, 770.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes2, boxes2_2), sf::Vector2f(0.0f + boxes2 * 11, 770.0f)));
 
 		//----box--pick----//
 		sf::Texture box22;
@@ -847,7 +870,7 @@ int main()
 		std::vector<ObjColli>Objs22;
 		for (size_t i = 0;i <= 30;i++)
 		{
-			Objs22.push_back(ObjColli(&box22, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(rand() % (4300 - 1200) + 1500, 400.0f)));
+			Objs22.push_back(ObjColli(&box22, sf::Vector2f(54.0f, 54.0f), sf::Vector2f(rand() % (4300 - 1200) + 1200, 400.0f)));
 		}
 
 		//---Limit Stage---//
@@ -863,7 +886,10 @@ int main()
 		TextFont text1;
 		TextFont text2;
 
-		bool Door1 = false;
+		bool item_s21 = true;
+		bool item_s22 = true;
+		bool item_s23 = true;
+		bool item_s24 = true;
 
 		sf::Clock clock;
 		float timeElasped = 0;
@@ -1021,16 +1047,82 @@ int main()
 			}
 			//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
 
+			for (size_t i = 0;i < Objs22.size(); i++)
+			{
+				if ((Objs22[i].getGlobalbounds().intersects(ArrR_i1.getGlobalBounds()) or Compman.getGlobalbounds().intersects(ArrR_i1.getGlobalBounds())) and item_s21 == true)
+				{
+					Narr_is.setPosition(eraseObj, eraseObj);
+					WFs.setPosition(ArrR_i1.getPosition().x, rand() % (50 - 10) + 10);
+					item_s21 = false;
+				}
+				if (Compman.getGlobalbounds().intersects(WFs.getGlobalBounds()))
+				{
+					ArrR_i1.setPosition(eraseObj, eraseObj);
+					WFs.setPosition(eraseObj, eraseObj);
+					Narr_i1.setPosition(Compman.getPosition().x - 200.0f, 100.0f);
+					Narr_i1.setRotation(135);
+					ArrR_i2.setPosition(Narr_i1.getPosition().x - 900.0f, arr_point2);
+					cout << ArrR_i2.getPosition().x << endl;
+				}
+				if ((Compman.getGlobalbounds().intersects(ArrR_i2.getGlobalBounds()) or Objs22[i].getGlobalbounds().intersects(ArrR_i2.getGlobalBounds())) and item_s22 == true)
+				{
+					LKs.setPosition(ArrR_i2.getPosition().x, rand() % (50 - 10) + 10);
+					item_s22 = false;
+				}
+				if (Compman.getGlobalbounds().intersects(LKs.getGlobalBounds()))
+				{
+					Narr_i1.setPosition(eraseObj, eraseObj);
+					ArrR_i2.setPosition(eraseObj, eraseObj);
+					LKs.setPosition(eraseObj, eraseObj);
+					Narr_i2.setPosition(Compman.getPosition().x - 200.0f, 100.0f);
+					Narr_i2.setRotation(135);
+					ArrR_i3.setPosition(Narr_i2.getPosition().x - (900.0f * 2), arr_point2);
+				}
+				if ((Compman.getGlobalbounds().intersects(ArrR_i3.getGlobalBounds()) or Objs22[i].getGlobalbounds().intersects(ArrR_i3.getGlobalBounds())) and item_s23 == true)
+				{
+					LCs.setPosition(ArrR_i3.getPosition().x, rand() % (50 - 10) + 10);
+					item_s23 = false;
+				}
+				if (Compman.getGlobalbounds().intersects(LCs.getGlobalBounds()))
+				{
+					Narr_i2.setPosition(eraseObj, eraseObj);
+					ArrR_i3.setPosition(eraseObj, eraseObj);
+					LCs.setPosition(eraseObj, eraseObj);
+					Narr_i3.setPosition(Compman.getPosition().x + 200.0f, 100.0f);
+					Narr_i3.setRotation(45);
+					ArrR_i4.setPosition(Narr_i3.getPosition().x + (900.0f *2), arr_point2);
+				}
+				if ((Compman.getGlobalbounds().intersects(ArrR_i4.getGlobalBounds()) or Objs22[i].getGlobalbounds().intersects(ArrR_i4.getGlobalBounds())) and item_s24 == true)
+				{
+					ELs.setPosition(ArrR_i4.getPosition().x, rand() % (60 - 20) + 20);
+					item_s24 = false;
+				}
+				if (Compman.getGlobalbounds().intersects(ELs.getGlobalBounds()))
+				{
+					Narr_i3.setPosition(eraseObj, eraseObj);
+					ArrR_i4.setPosition(eraseObj, eraseObj);
+					ELs.setPosition(eraseObj, eraseObj);
+					Darr1.setPosition(Compman.getPosition().x + 200.0f, Compman.getPosition().y);
+					cout << Darr1.getPosition().x << "\t" << Darr1.getPosition().y << endl;
+					Darr1.setRotation(45);
+					D_Go.setPosition(Darr1.getPosition().x + 600.0f, arr_point2 + 50.0f);
+				}
+				if (Compman.getGlobalbounds().intersects(D_Go.getGlobalBounds()))
+				{
+					Darr1.setPosition(eraseObj, eraseObj);
+					hell.setPosition(D_Go.getPosition().x + 300.0f, arr_point2 + 30.0f);
+				}
+
+			}
 
 			if (Keyboard::isKeyPressed(Keyboard::End))
 			{
 				hell.setPosition(sf::Vector2f(Compman.getPosition().x + 50.0f, Compman.getPosition().y - 30.0f));
-				Door1 = true;
 			}
 
 			if (Compman.getGlobalbounds().intersects(hell.getGlobalBounds()))
 			{
-				cout << "Go State 3";
+				cout << "Go State 3" << endl;
 				Game_State = 3;
 				stage2.stop();
 				window.clear();
@@ -1052,6 +1144,9 @@ int main()
 			window.draw(Narr_i1);
 			window.draw(Narr_i2);
 			window.draw(Narr_i3);
+			window.draw(Darr1);
+			window.draw(D_Go);
+			window.draw(Narr_is);
 			Compman.Draw(window);
 			for (ObjColli& Obj : Objs12)
 				Obj.Draw(window);
@@ -1086,20 +1181,20 @@ int main()
 		sf::Texture box12;
 		box12.loadFromFile("Object/Christmas_box.png");
 		std::vector<ObjColli>Objs12;
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 2, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 3, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 4, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 5, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 6, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 7, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 8, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 9, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 10, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 11, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 12, 1000.0f)));
-		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 13, 1000.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 2, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 3, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 4, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 5, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 6, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 7, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 8, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 9, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 10, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 11, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 12, 1000-192.0f)));
+		Objs12.push_back(ObjColli(&box12, sf::Vector2f(boxes3, boxes3_3), sf::Vector2f(0.0f + boxes3 * 13, 1000-192.0f)));
 
 		//----box--pick----//
 		sf::Texture box22;
@@ -1315,9 +1410,10 @@ int main()
 		}
 	}
 
-	if (Game_State == 5)
+	while (Game_State == 5)
 	{
 		cout << "Stage 5";
+		sf::View view(sf::Vector2f(500.0f, 450.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 		sf::Clock deCLK = sf::Clock();
 		double debounce;
 
@@ -1360,7 +1456,6 @@ int main()
 				if (event.type == sf::Event::TextEntered)
 				{
 					enterinto = true;
-					cout << "intoEnter";
 					if (event.text.unicode == '\b' && (name.getSize() > 0))
 					{
 						name1.erase(name.getSize() - 1, 1);
@@ -1368,7 +1463,7 @@ int main()
 					}
 					else
 					{
-						if ((event.text.unicode < 128) && (name.getSize() < 8) && (event.text.unicode != '\b'))
+						if ((event.text.unicode < 128) && (name.getSize() < 10) && (event.text.unicode != '\b'))
 						{
 							name += static_cast<char>(event.text.unicode);
 							name1 += static_cast<char>(event.text.unicode);
@@ -1376,16 +1471,18 @@ int main()
 					}
 					yourname.setFont(font);
 					yourname.setString(name);
-					yourname.setFillColor(sf::Color::White);
-					yourname.setCharacterSize(20);
-					yourname.setPosition(window.getSize().x/2, window.getSize().y/2);
+					yourname.setFillColor(sf::Color::Blue);
+					yourname.setCharacterSize(60);
+					yourname.setOrigin(yourname.getLocalBounds().width / 2, yourname.getLocalBounds().height / 2);
+					yourname.setPosition(window.getSize().x/2, window.getSize().y/2 + 280);
 				}
 				if (Keyboard::isKeyPressed(Keyboard::Enter))
 				{
 					window.close();
 				}
 			}
-			window.clear();
+			window.clear(Color(255,255,255));
+			window.setView(view);
 			window.draw(name_key);
 			window.draw(yourname);
 			window.display();
