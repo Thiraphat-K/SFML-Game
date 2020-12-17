@@ -13,6 +13,7 @@ static const float boxes2 = 513.0f;
 static const float boxes2_2 = 229.5f;
 static const float boxes3 = 463.0f;
 static const float boxes3_3 = 320.0f;
+static const float arr_point = 640.0f;
 using namespace std;
 float max_spacebartimer = 450;
 float spacebartimer = 0;
@@ -353,7 +354,7 @@ int main()
 		Sprite bt;
 		bt.setTexture(item11);
 		bt.setScale(1.2, 1.2);
-		bt.setPosition(2500.f, 50.0f);
+		bt.setPosition(eraseObj, eraseObj);
 		bt.setOrigin(bt.getScale().x / 2, bt.getScale().y / 2);
 		//ITEM_2
 		Texture item12;
@@ -361,7 +362,7 @@ int main()
 		Sprite bt2;
 		bt2.setTexture(item12);
 		bt2.setScale(1.2, 1.2);
-		bt2.setPosition(1800.f, 40.0f);
+		bt2.setPosition(eraseObj, eraseObj);
 		bt2.setOrigin(bt2.getScale().x / 2, bt2.getScale().y / 2);
 		//ITEM_3
 		Texture item13;
@@ -369,7 +370,7 @@ int main()
 		Sprite bt3;
 		bt3.setTexture(item13);
 		bt3.setScale(1.2, 1.2);
-		bt3.setPosition(4200.f, 40.0f);
+		bt3.setPosition(eraseObj, eraseObj);
 		bt3.setOrigin(bt3.getScale().x / 2, bt3.getScale().y / 2);
 
 		Texture arr;
@@ -377,19 +378,19 @@ int main()
 		Sprite arr1;
 		arr1.setTexture(arr);
 		arr1.setScale(0.9, 0.9);
-		arr1.setPosition(2500.f, 640.0f);
+		arr1.setPosition(2700.0f, arr_point);
 		arr1.setOrigin(arr1.getScale().x / 2, arr1.getScale().y / 2);
 
 		Sprite arr2;
 		arr2.setTexture(arr);
 		arr2.setScale(0.9, 0.9);
-		arr2.setPosition(1800.f, 640.0f);
+		arr2.setPosition(eraseObj, eraseObj);
 		arr2.setOrigin(arr2.getScale().x / 2, arr2.getScale().y / 2);
 
 		Sprite arr3;
 		arr3.setTexture(arr);
 		arr3.setScale(0.9, 0.9);
-		arr3.setPosition(4200.f, 640.0f);
+		arr3.setPosition(eraseObj, eraseObj);
 		arr3.setOrigin(arr3.getScale().x / 2, arr3.getScale().y / 2);
 
 
@@ -399,8 +400,7 @@ int main()
 		Sprite Narr1;
 		Narr1.setTexture(Narr);
 		Narr1.setScale(1.2, 1.2);
-		Narr1.setPosition(2300.f, 150.0f);
-		Narr1.setRotation(135);
+		Narr1.setPosition(eraseObj, eraseObj);
 		Narr1.setOrigin(Narr1.getScale().x / 2, Narr1.getScale().y / 2);
 
 		Texture Narr_2;
@@ -408,8 +408,7 @@ int main()
 		Sprite Narr2;
 		Narr2.setTexture(Narr_2);
 		Narr2.setScale(1.2, 1.2);
-		Narr2.setPosition(2300.f, 150.0f);
-		Narr2.setRotation(45);
+		Narr2.setPosition(eraseObj, eraseObj);
 		Narr2.setOrigin(Narr2.getScale().x / 2, Narr2.getScale().y / 2);
 
 		Texture Darr_1;
@@ -417,8 +416,7 @@ int main()
 		Sprite Darr1;
 		Darr1.setTexture(Darr_1);
 		Darr1.setScale(1.2, 1.2);
-		Darr1.setPosition(4300.f, 150.0f);
-		Darr1.setRotation(45);
+		Darr1.setPosition(eraseObj, eraseObj);
 		Darr1.setOrigin(Darr1.getScale().x / 2, Darr1.getScale().y / 2);
 
 		Texture DGo;
@@ -426,14 +424,15 @@ int main()
 		Sprite D_Go;
 		D_Go.setTexture(DGo);
 		D_Go.setScale(1.2, 1.2);
-		D_Go.setPosition(4900.f, 690.0f);
+		D_Go.setPosition(eraseObj, eraseObj);
 		D_Go.setOrigin(D_Go.getScale().x / 2, D_Go.getScale().y / 2);
 
 		sf::Texture Holl;
 		Holl.loadFromFile("Object/Holl.png");
 		sf::Sprite hell(Holl);
 		hell.setScale(1.2, 1.2);
-		hell.setPosition(5300.0f, 675.0f);
+		hell.setPosition(eraseObj, eraseObj
+		);
 		hell.setOrigin(hell.getScale().x / 2, hell.getScale().y / 2);
 
 		//----hitboxtest----//
@@ -445,9 +444,11 @@ int main()
 		TextFont text1;
 		TextFont text2;
 
-		bool Nextarr = false; bool Nextarr1 = false; bool Nextarr2 = false; bool Nextarr3 = false;
-		bool N_item2 = false; bool N_item3 = false;
-		bool Door1 = false;
+		//----bool for if rand y position item----//
+		bool item_s11 = true;
+		bool item_s12 = true;
+		bool item_s13 = true;
+		
 		sf::Clock clock;
 		float timeElasped = 0;
 		float PointTime = 100;
@@ -605,41 +606,58 @@ int main()
 			}
 			//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
 
-			if (Compman.getGlobalbounds().intersects(bt.getGlobalBounds()))
+			//---loop pick item---//
+			for (size_t i = 0;i < Objs2.size(); i++)
 			{
-				bt.setPosition(eraseObj, eraseObj);
-				arr1.setPosition(eraseObj, eraseObj);
-				Nextarr = true;
+				if ((Objs2[i].getGlobalbounds().intersects(arr1.getGlobalBounds()) or Compman.getGlobalbounds().intersects(arr1.getGlobalBounds())) and item_s11 == true)
+				{
+					bt.setPosition(arr1.getPosition().x, rand() % (150 - 40) + 40);
+					item_s11 = false;
+				}
+				if (Compman.getGlobalbounds().intersects(bt.getGlobalBounds()))
+				{
+					arr1.setPosition(eraseObj, eraseObj);
+					bt.setPosition(eraseObj, eraseObj);
+					Narr1.setPosition(Compman.getPosition().x - 200.0f, 200.0f);
+					Narr1.setRotation(135);
+					arr2.setPosition(Narr1.getPosition().x - 900.0f, arr_point);
+				}
+				if ((Compman.getGlobalbounds().intersects(arr2.getGlobalBounds()) or Objs2[i].getGlobalbounds().intersects(arr2.getGlobalBounds())) and item_s12 == true)
+				{
+					bt2.setPosition(arr2.getPosition().x, rand() % (150 - 40) + 40);
+					item_s12 = false;
+					Narr1.setPosition(eraseObj, eraseObj);
+				}
+				if(Compman.getGlobalbounds().intersects(bt2.getGlobalBounds()))
+				{
+					arr2.setPosition(eraseObj, eraseObj);
+					bt2.setPosition(eraseObj, eraseObj);
+					Narr2.setPosition(Compman.getPosition().x + 200.0f, 200.0f);
+					Narr2.setRotation(45);
+					arr3.setPosition(Narr2.getPosition().x + (900.0f*2), arr_point);
+				}
+				if ((Compman.getGlobalbounds().intersects(arr3.getGlobalBounds()) or Objs2[i].getGlobalbounds().intersects(arr3.getGlobalBounds())) and item_s13 == true)
+				{
+					bt3.setPosition(arr3.getPosition().x, rand() % (150 - 40) + 40);
+					item_s13 = false;
+					Narr2.setPosition(eraseObj, eraseObj);
+				}
+				if (Compman.getGlobalbounds().intersects(bt3.getGlobalBounds()))
+				{
+					arr3.setPosition(eraseObj, eraseObj);
+					bt3.setPosition(eraseObj, eraseObj);
+					Darr1.setPosition(Compman.getPosition().x + 200.0f, 200.0f);
+					Darr1.setRotation(45);
+					D_Go.setPosition(Darr1.getPosition().x + 600.0f, arr_point+50.0f);
+				}
+				if (Compman.getGlobalbounds().intersects(D_Go.getGlobalBounds()))
+				{
+					Darr1.setPosition(eraseObj, eraseObj);
+					hell.setPosition(D_Go.getPosition().x + 300.0f, arr_point+30.0f);
+				}
 
-			}	//ITEM_1
-			if (Compman.getGlobalbounds().intersects(arr2.getGlobalBounds()))
-			{
-				Narr1.setPosition(eraseObj, eraseObj);
 			}
-			if (Compman.getGlobalbounds().intersects(bt2.getGlobalBounds()))
-			{
-				arr2.setPosition(eraseObj, eraseObj);
-				bt2.setPosition(eraseObj, eraseObj);
-				Nextarr1 = true;
-			}
-			if (Compman.getGlobalbounds().intersects(arr3.getGlobalBounds()))
-			{
-				Narr2.setPosition(eraseObj, eraseObj);
-			}
-			if (Compman.getGlobalbounds().intersects(bt3.getGlobalBounds()))
-			{
-				arr3.setPosition(eraseObj, eraseObj);
-				bt3.setPosition(eraseObj, eraseObj);
-				Nextarr2 = true;
-			}
-			if (Compman.getPosition().x == Darr1.getPosition().x)
-			{
-				Nextarr3 = true;
-			}
-			if (Compman.getGlobalbounds().intersects(D_Go.getGlobalBounds()) + 200.0f && Compman.getGlobalbounds().intersects(bt3.getGlobalBounds()))
-			{
-				Door1 = true;
-			}
+
 			if (Compman.getGlobalbounds().intersects(hell.getGlobalBounds()))
 			{
 				cout << "Go State 2";
@@ -651,45 +669,22 @@ int main()
 			if (Keyboard::isKeyPressed(Keyboard::End))
 			{
 				hell.setPosition(sf::Vector2f(Compman.getPosition().x + 50.0f, Compman.getPosition().y - 30.0f));
-				Door1 = true;
 			}
 
 			window.clear(sf::Color(255, 255, 255));
 			window.setView(view);
 			window.draw(bt);
 			window.draw(arr1);
-			if (Nextarr == true)
-			{
-				window.draw(Narr1);
-				N_item2 = true;
-			}
-			if (N_item2 == true)
-			{
-				window.draw(arr2);
-				window.draw(bt2);
-			}
-			if (Nextarr1 == true)
-			{
-				window.draw(Narr2);
-				N_item3 = true;
-			}
-			if (N_item3 == true)
-			{
-				window.draw(arr3);
-				window.draw(bt3);
-			}
-			if (Nextarr2 == true)
-			{
-				window.draw(Darr1);
-			}
-			if (Nextarr3 == true)
-			{
-				window.draw(D_Go);
-			}
-			if (Door1 == true)
-			{
-				window.draw(hell);
-			}
+			window.draw(Narr1);
+			window.draw(arr2);
+			window.draw(bt2);
+			window.draw(Narr2);
+			window.draw(arr3);
+			window.draw(bt3);
+			window.draw(Darr1);
+			window.draw(D_Go);
+			window.draw(hell);
+
 			Compman.Draw(window);
 			for (ObjColli& Obj : Objs1)
 				Obj.Draw(window);
@@ -722,8 +717,112 @@ int main()
 		Holl.loadFromFile("Object/Holl.png");
 		sf::Sprite hell(Holl);
 		hell.setScale(1.2, 1.2);
-		hell.setPosition(5300.0f, 675.0f);
+		hell.setPosition(eraseObj, eraseObj);
 		hell.setOrigin(hell.getScale().x / 2, hell.getScale().y / 2);
+		//---------Item---------//
+		Texture WFt;
+		WFt.loadFromFile("Object/Item_stage2/1.png");
+		Sprite WFs;
+		WFs.setTexture(WFt);
+		WFs.setScale(1.2, 1.2);
+		WFs.setPosition(eraseObj, eraseObj);
+		WFs.setOrigin(WFs.getScale().x / 2, WFs.getScale().y / 2);
+
+		Texture ELt;
+		ELt.loadFromFile("Object/Item_stage2/2.png");
+		Sprite ELs;
+		ELs.setTexture(ELt);
+		ELs.setScale(1.2, 1.2);
+		ELs.setPosition(eraseObj, eraseObj);
+		ELs.setOrigin(ELs.getScale().x / 2, ELs.getScale().y / 2);
+
+		Texture LKt;
+		LKt.loadFromFile("Object/Item_stage2/3.png");
+		Sprite LKs;
+		LKs.setTexture(LKt);
+		LKs.setScale(1.2, 1.2);
+		LKs.setPosition(eraseObj, eraseObj);
+		LKs.setOrigin(LKs.getScale().x / 2, LKs.getScale().y / 2);
+
+		Texture LCt;
+		LCt.loadFromFile("Object/Item_stage2/3.png");
+		Sprite LCs;
+		LCs.setTexture(LCt);
+		LCs.setScale(1.2, 1.2);
+		LCs.setPosition(eraseObj, eraseObj);
+		LCs.setOrigin(LCs.getScale().x / 2, LCs.getScale().y / 2);
+		//--------------------------------------------------------------------
+
+		//--Arrow point Item--//
+		Texture ArrR;
+		ArrR.loadFromFile("Object/ArrRed.png");
+		Sprite ArrR_i1;
+		ArrR_i1.setTexture(ArrR);
+		ArrR_i1.setScale(0.9, 0.9);
+		ArrR_i1.setPosition(eraseObj, eraseObj);
+		ArrR_i1.setOrigin(ArrR_i1.getScale().x / 2, ArrR_i1.getScale().y / 2);
+
+		Sprite ArrR_i2;
+		ArrR_i2.setTexture(ArrR);
+		ArrR_i2.setScale(0.9, 0.9);
+		ArrR_i2.setPosition(eraseObj, eraseObj);
+		ArrR_i2.setOrigin(ArrR_i2.getScale().x / 2, ArrR_i2.getScale().y / 2);
+
+		Sprite ArrR_i3;
+		ArrR_i3.setTexture(ArrR);
+		ArrR_i3.setScale(0.9, 0.9);
+		ArrR_i3.setPosition(eraseObj, eraseObj);
+		ArrR_i3.setOrigin(ArrR_i3.getScale().x / 2, ArrR_i3.getScale().y / 2);
+		
+		Sprite ArrR_i4;
+		ArrR_i4.setTexture(ArrR);
+		ArrR_i4.setScale(0.9, 0.9);
+		ArrR_i4.setPosition(eraseObj, eraseObj);
+		ArrR_i4.setOrigin(ArrR_i4.getScale().x / 2, ArrR_i4.getScale().y / 2);
+		//------------------------------------------------------------------------
+
+		//----Arrow guide Item----//
+		Texture Narr;
+		Narr.loadFromFile("Object/NArrRed.png");
+		Sprite Narr_i1;
+		Narr_i1.setTexture(Narr);
+		Narr_i1.setScale(1.2, 1.2);
+		Narr_i1.setPosition(eraseObj, eraseObj);
+		Narr_i1.setRotation(135);
+		Narr_i1.setOrigin(Narr_i1.getScale().x / 2, Narr_i1.getScale().y / 2);
+
+		Texture Narr2;
+		Narr2.loadFromFile("Object/NArrRed2.png");
+		Sprite Narr_i2;
+		Narr_i2.setTexture(Narr2);
+		Narr_i2.setScale(1.2, 1.2);
+		Narr_i2.setPosition(eraseObj, eraseObj);
+		Narr_i2.setRotation(45);
+		Narr_i2.setOrigin(Narr_i2.getScale().x / 2, Narr_i2.getScale().y / 2);
+
+		Sprite Narr_i3;
+		Narr_i3.setTexture(Narr);
+		Narr_i3.setScale(1.2, 1.2);
+		Narr_i3.setPosition(eraseObj, eraseObj);
+		Narr_i3.setRotation(135);
+		Narr_i3.setOrigin(Narr_i3.getScale().x / 2, Narr_i3.getScale().y / 2);
+
+		Texture Darr_1;
+		Darr_1.loadFromFile("Object/DoorArr.png");
+		Sprite Darr1;
+		Darr1.setTexture(Darr_1);
+		Darr1.setScale(1.2, 1.2);
+		Darr1.setPosition(eraseObj, eraseObj);
+		Darr1.setRotation(45);
+		Darr1.setOrigin(Darr1.getScale().x / 2, Darr1.getScale().y / 2);
+
+		Texture DGo;
+		DGo.loadFromFile("Object/DoorArrGo.png");
+		Sprite D_Go;
+		D_Go.setTexture(DGo);
+		D_Go.setScale(1.2, 1.2);
+		D_Go.setPosition(eraseObj, eraseObj);
+		D_Go.setOrigin(D_Go.getScale().x / 2, D_Go.getScale().y / 2);
 
 		//***BoxStage**//
 		sf::Texture box12;
@@ -922,13 +1021,12 @@ int main()
 			}
 			//cout << view.getCenter().x << "\t" << view.getCenter().y << endl ;
 
+
 			if (Keyboard::isKeyPressed(Keyboard::End))
 			{
 				hell.setPosition(sf::Vector2f(Compman.getPosition().x + 50.0f, Compman.getPosition().y - 30.0f));
 				Door1 = true;
 			}
-
-
 
 			if (Compman.getGlobalbounds().intersects(hell.getGlobalBounds()))
 			{
@@ -942,10 +1040,18 @@ int main()
 			window.clear(sf::Color(255, 255, 255));
 			//--DrawEverythings--//
 			window.setView(view);
-			if (Door1 == true)
-			{
-				window.draw(hell);
-			}
+			window.draw(hell);
+			window.draw(WFs);
+			window.draw(LKs);
+			window.draw(LCs);
+			window.draw(ELs);
+			window.draw(ArrR_i1);
+			window.draw(ArrR_i2);
+			window.draw(ArrR_i3);
+			window.draw(ArrR_i4);
+			window.draw(Narr_i1);
+			window.draw(Narr_i2);
+			window.draw(Narr_i3);
 			Compman.Draw(window);
 			for (ObjColli& Obj : Objs12)
 				Obj.Draw(window);
