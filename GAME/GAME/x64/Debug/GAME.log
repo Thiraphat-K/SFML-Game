@@ -9,7 +9,7 @@ C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(86,29): warning 
           [
               T=unsigned int
           ]
-C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(151,128): warning C4305: 'argument': truncation from 'int' to 'float'
+C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(151,129): warning C4305: 'argument': truncation from 'int' to 'float'
 C:\Users\Thiraphat Ketsingnoi\source\repos\GAME\GAME\Source.cpp(286,68): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [

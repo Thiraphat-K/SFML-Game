@@ -148,7 +148,7 @@ int main()
 			window.clear();
 			window.draw(BGmn);
 			menu.draw(window);
-			SDid.drawtext(63010467, (string)"", (string)"  THIRAPHAT KETSINGNOI", sf::Vector2f(610, 865), window, sf::Color(0, 120, 255));
+			SDid.drawtext(63010467, (string)".", (string)"  THIRAPHAT KETSINGNOI", sf::Vector2f(600, 865), window, sf::Color(0, 120, 255));
 			window.display();
 			if (checkGameOpen == true)
 				break;
@@ -1203,7 +1203,7 @@ int main()
 		Narr_is.setPosition(eraseObj, eraseObj);
 		//Narr_i1.setRotation(135);
 		Narr_is.setOrigin(Narr_is.getScale().x / 2, Narr_is.getScale().y / 2);
-		Narr_is.setPosition(Compman.getPosition().x - 200.f, arr_point2);
+		Narr_is.setPosition(ArrR_i1.getPosition().x - 200.f, arr_point2);
 
 		Texture Darr_1;
 		Darr_1.loadFromFile("Object/DoorArr.png");
