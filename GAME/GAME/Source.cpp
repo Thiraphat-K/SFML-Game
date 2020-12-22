@@ -698,7 +698,6 @@ int main()
 			window.draw(bt3);
 			window.draw(Darr1);
 			window.draw(D_Go);
-			window.draw(hell);
 			window.draw(Narr_is);
 			Compman.Draw(window);
 			for (ObjColli& Obj : Objs1)
@@ -709,6 +708,7 @@ int main()
 				Obj.Draw(window);
 			/*hitbox0.Draw(window);
 			hitbox1.Draw(window);*/
+			window.draw(hell);
 			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 250, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
 			//text2.drawtext((int)abs(PointTime), (string)"Point : ", (string)"", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 200, view.getCenter().y - (window.getSize().y / 2) + 55), window, sf::Color(255, 150, 0));
 			window.display();
@@ -1134,7 +1134,6 @@ int main()
 			window.clear(sf::Color(255, 255, 255));
 			//--DrawEverythings--//
 			window.setView(view);
-			window.draw(hell);
 			window.draw(WFs);
 			window.draw(LKs);
 			window.draw(LCs);
@@ -1156,6 +1155,7 @@ int main()
 				Obj.Draw(window);
 			for (ObjColli& Obj : Objs32)
 				Obj.Draw(window);
+			window.draw(hell);
 			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 250, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
 			window.display();
 		}
@@ -1465,7 +1465,6 @@ int main()
 			window.clear(sf::Color(255, 255, 255));
 			//--DrawEverythings--//
 			window.setView(view);
-			window.draw(hell);
 			window.draw(Gs);
 			window.draw(Narr_is);
 			window.draw(ArrR_i1);
@@ -1478,14 +1477,15 @@ int main()
 				Obj.Draw(window);
 			for (ObjColli& Obj : Objs33)
 				Obj.Draw(window);
+			window.draw(hell);
 			text1.drawtext((float)abs(GameTime), (string)"Time : ", (string)" s", sf::Vector2f(view.getCenter().x + (window.getSize().x / 2) - 250, view.getCenter().y - (window.getSize().y / 2) + 20), window, sf::Color(255, 0, 0));
 			window.display();
 		}
 	}
 
-	while (Game_State == 5)
+	if (Game_State == 5)
 	{
-		cout << "Stage 5";
+		//cout << "Stage 5";
 		sf::View view(sf::Vector2f(500.0f, 450.0f), sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 		sf::Clock deCLK = sf::Clock();
 		double debounce;
@@ -1544,7 +1544,7 @@ int main()
 					}
 					yourname.setFont(font);
 					yourname.setString(name);
-					yourname.setFillColor(sf::Color::Blue);
+					yourname.setFillColor(sf::Color(240,200,0));
 					yourname.setCharacterSize(60);
 					yourname.setOrigin(yourname.getLocalBounds().width / 2, yourname.getLocalBounds().height / 2);
 					yourname.setPosition(window.getSize().x/2, window.getSize().y/2 + 280);
@@ -1562,7 +1562,7 @@ int main()
 		}
 
 		//cout << "Position x : " << Compman.getPosition().x << "\n" << "Position y : " << Compman.getPosition().y << "\n" << endl;
-		cout << "Go State Score";
+		//cout << "Go State Score";
 		ofstream highscore;
 		highscore.open("HS.txt", ios::out | ios::app);
 		highscore << "\n" << name1 << " " << GameTime;
